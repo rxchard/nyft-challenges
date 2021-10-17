@@ -1,0 +1,32 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/utilities';
+
+html,
+body,
+#__next {
+  @apply font-default h-full w-full flex flex-col;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  @apply font-head;
+}
+
+*,
+*::after,
+*::before {
+  @apply box-border m-0 outline-none;
+}
+
+*:hover,
+*:focus,
+button:focus {
+  @apply outline-none;
+}
