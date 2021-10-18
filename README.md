@@ -1,6 +1,6 @@
-# Palm Challenges
+# Nyft Projects
 
-Submissions made for previous palm challenges.
+Curation of project made for Nifty Island.
 
 [License](https://github.com/rxchard/nyft-challenges/blob/main/LICENSE)
 
