@@ -8,6 +8,8 @@ module.exports = {
         '3xl': '1842px',
       },
       colors: {
+        nlight: '#ffdbdb',
+        ndark: '#18141a',
         orchid: {
           50: '#fdf8fe',
           100: '#fbf1fc',
