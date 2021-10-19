@@ -1,7 +1,7 @@
 import React from 'react'
-import Link from './util/Link'
+import { Link } from './util/Link'
 
-const Header: React.FC = () => {
+export const Header: React.FC = () => {
   return (
     <div className="w-full flex flex-row justify-end p-8 bg-ndark">
       <div className="uppercase font-default text-white text-xl space-x-8">
@@ -13,5 +13,3 @@ const Header: React.FC = () => {
     </div>
   )
 }
-
-export default Header

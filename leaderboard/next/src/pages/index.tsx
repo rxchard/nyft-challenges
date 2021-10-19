@@ -1,3 +1,3 @@
-import Landing from '../modules/landing'
+import { LandingPage } from '../modules/landing'
 
-export default Landing
+export default LandingPage

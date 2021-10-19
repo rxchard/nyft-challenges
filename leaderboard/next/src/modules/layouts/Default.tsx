@@ -1,12 +1,10 @@
 import React from 'react'
 
-import Header from '../Header'
+import { Header } from '../Header'
 
-const Layout: React.FC<{}> = ({ children }) => (
+export const DefaultLayout: React.FC<{}> = ({ children }) => (
   <>
     <Header />
     {children}
   </>
 )
-
-export default Layout

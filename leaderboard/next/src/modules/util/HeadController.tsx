@@ -6,7 +6,7 @@ interface ControllerProps {
   description?: string
 }
 
-const Controller: React.FC<ControllerProps> = ({
+export const HeadController: React.FC<ControllerProps> = ({
   title,
   description = 'A legendary leaderboard for legendary palm holders 🏝️',
 }) => (
@@ -20,5 +20,3 @@ const Controller: React.FC<ControllerProps> = ({
     <meta name="og:image" content="/embed.png" />
   </Head>
 )
-
-export default Controller

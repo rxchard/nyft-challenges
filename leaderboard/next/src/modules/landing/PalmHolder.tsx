@@ -1,13 +1,13 @@
 import React from 'react'
 
-import Link from '../util/Link'
+import { Link } from '../util/Link'
 
 interface HolderProps {
   address?: string
   points?: number
 }
 
-const PalmHolder: React.FC<HolderProps> = ({
+export const PalmHolder: React.FC<HolderProps> = ({
   address = '0x0000000000000000000000000000000000000000',
   points = 12,
 }) => (
@@ -33,5 +33,3 @@ const PalmHolder: React.FC<HolderProps> = ({
     </div>
   </div>
 )
-
-export default PalmHolder

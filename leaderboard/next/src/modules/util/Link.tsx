@@ -6,7 +6,11 @@ interface LinkProps {
   url: string
 }
 
-const Link: React.FC<LinkProps> = ({ children, external = false, url }) =>
+export const Link: React.FC<LinkProps> = ({
+  children,
+  external = false,
+  url,
+}) =>
   external ? (
     <a href={url} rel="noreferrer noopener" target="_blank">
       {children}
@@ -14,5 +18,3 @@ const Link: React.FC<LinkProps> = ({ children, external = false, url }) =>
   ) : (
     <NextLink href={url}>{children}</NextLink>
   )
-
-export default Link

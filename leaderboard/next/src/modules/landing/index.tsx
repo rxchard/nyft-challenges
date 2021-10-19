@@ -1,10 +1,10 @@
 import type { NextPage } from 'next'
 
-import HeadController from '../util/HeadController'
-import DefaultLayout from '../layouts/Default'
-import PalmHolder from './PalmHolder'
+import { HeadController } from '../util/HeadController'
+import { DefaultLayout } from '../layouts/Default'
+import { PalmHolder } from './PalmHolder'
 
-const Index: NextPage = () => (
+export const LandingPage: NextPage = () => (
   <>
     <HeadController title="Leaderboard" />
     <DefaultLayout>
@@ -21,5 +21,3 @@ const Index: NextPage = () => (
     </DefaultLayout>
   </>
 )
-
-export default Index
