@@ -1,0 +1,8 @@
+{
+  "extends": ["stylelint-config-standard", "stylelint-config-prettier"],
+  "rules": {
+    "order/properties-alphabetical-order": true,
+    "scss/at-rule-no-unknown": null,
+    "scss/at-import-no-partial-leading-underscore": null
+  }
+}

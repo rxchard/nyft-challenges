@@ -1,0 +1,38 @@
+{
+  "name": "api",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "tsc -p .",
+    "dev": "npm run build && NODE_ENV=development node ./dist/app.js",
+    "lint:js": "eslint",
+    "lint:style": "stylelint \"src/**/*.ts\" --ignore-path .gitignore",
+    "lint": "npm run lint:style && npm run lint:js"
+  },
+  "devDependencies": {
+    "@types/node": "^16.11.1",
+    "@typescript-eslint/eslint-plugin": "^5.1.0",
+    "@typescript-eslint/parser": "^5.1.0",
+    "eslint": "^8.0.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "stylelint": "^13.13.1",
+    "stylelint-config-prettier": "^9.0.3",
+    "stylelint-config-standard": "^22.0.0",
+    "typescript": "^4.4.4"
+  },
+  "dependencies": {
+    "@typegoose/typegoose": "^9.2.0",
+    "apollo-server-koa": "^3.4.0",
+    "class-validator": "^0.13.1",
+    "ethers": "^5.4.7",
+    "graphql": "^15.6.1",
+    "koa": "^2.13.4",
+    "koa-helmet": "^6.1.0",
+    "mongoose": "^6.0.11",
+    "subscriptions-transport-ws": "^0.9.19",
+    "type-graphql": "^1.1.1",
+    "web3": "^1.6.0",
+    "winston": "^3.3.3"
+  }
+}
