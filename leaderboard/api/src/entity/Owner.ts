@@ -3,12 +3,12 @@ import { prop, getModelForClass } from '@typegoose/typegoose'
 
 @ObjectType()
 class Palms {
-  @prop()
   @Field()
+  @prop()
   ultra!: number
 
-  @prop()
   @Field()
+  @prop()
   neon!: number
 
   @prop()
@@ -35,9 +35,10 @@ export class Owner {
   @Field()
   address!: string
 
-  @prop()
+  @prop({ type: Palms, _id: false })
   @Field()
   palms!: Palms
 }
 
+// export const OwnerModel = getModelForClass(Owner, { schemaOptions: { collection: '' } })
 export const OwnerModel = getModelForClass(Owner)

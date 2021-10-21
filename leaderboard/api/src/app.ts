@@ -8,8 +8,12 @@ import { connect } from './store/compass'
 import { info, debug, error, warn } from './winston'
 import { ProfileResolver } from './modules/owner/Profile'
 
+import { synchronize } from './modules/eth/sync'
+
 async function server() {
   await connect()
+
+  synchronize()
 
   const schema = await buildSchema({
     resolvers: [ProfileResolver],
