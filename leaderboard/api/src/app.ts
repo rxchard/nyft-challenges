@@ -6,17 +6,18 @@ import { buildSchema } from 'type-graphql'
 
 import { connect } from './store/compass'
 import { info, debug, error, warn } from './winston'
-import { ProfileResolver } from './modules/owner/Profile'
 
-import { synchronize } from './modules/eth/sync'
+import { sync } from './modules/eth/sync'
+
+import { ProfileResolver } from './modules/owner/Profile'
+import { LeaderboardResolver } from './modules/owner/Leaderboard'
 
 async function server() {
   await connect()
-
-  synchronize()
+  await sync.start()
 
   const schema = await buildSchema({
-    resolvers: [ProfileResolver],
+    resolvers: [ProfileResolver, LeaderboardResolver],
   })
 
   const server = new ApolloServer({

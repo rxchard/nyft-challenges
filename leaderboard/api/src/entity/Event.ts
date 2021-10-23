@@ -1,22 +1,8 @@
 import { BigNumber } from '@ethersproject/bignumber'
 import { prop, getModelForClass } from '@typegoose/typegoose'
-import { BasePropOptions } from '@typegoose/typegoose/lib/types'
+import { BigNumberOpt } from '../store/types'
 
-// Could add custom schema type but this will suffice.
-// Saves as hex string, gets as BigNumber
-//
-const BigNumberOpt: BasePropOptions = {
-  get: (v: any) => {
-    if (typeof v === 'undefined') return null
-    return BigNumber.from(v)
-  },
-  set: (v: any) => {
-    if (v instanceof BigNumber) return v.toHexString()
-    return BigNumber.from(v).toHexString()
-  },
-}
-
-class EventArgs {
+export class EventArgs {
   @prop() operator!: string
   @prop() from!: string
   @prop() to!: string
@@ -28,7 +14,7 @@ class EventArgs {
   values!: BigNumber[]
 }
 
-class Event {
+export class Event {
   @prop() event!: string
 
   @prop() blockNumber!: number

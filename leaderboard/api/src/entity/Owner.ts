@@ -1,44 +1,44 @@
 import { ObjectType, Field } from 'type-graphql'
-import { prop, getModelForClass } from '@typegoose/typegoose'
+import { prop, getModelForClass, pre } from '@typegoose/typegoose'
 
 @ObjectType()
-class Palms {
-  @Field()
-  @prop()
-  ultra!: number
+export class Balance {
+  @Field() @prop() iron!: number
+  @Field() @prop() bronze!: number
+  @Field() @prop() silver!: number
+  @Field() @prop() gold!: number
+  @Field() @prop() neon!: number
+  @Field() @prop() ultra!: number
 
-  @Field()
-  @prop()
-  neon!: number
-
-  @prop()
-  @Field()
-  gold!: number
-
-  @prop()
-  @Field()
-  silver!: number
-
-  @prop()
-  @Field()
-  bronze!: number
-
-  @prop()
-  @Field()
-  iron!: number
+  public evaluate(): number {
+    return (
+      this.iron * 1 +
+      this.bronze * 2 +
+      this.silver * 4 +
+      this.gold * 8 +
+      this.neon * 40 +
+      this.ultra * 200
+    )
+  }
 }
 
 @ObjectType()
+@pre<Owner>('save', function () {
+  this.valuation = this.balance.evaluate()
+})
 export class Owner {
   // ERC-20 Address
-  @prop()
   @Field()
+  @prop()
   address!: string
 
-  @prop({ type: Palms, _id: false })
   @Field()
-  palms!: Palms
+  @prop({ type: Balance, _id: false })
+  balance!: Balance
+
+  @Field()
+  @prop()
+  valuation!: number
 }
 
-// export const OwnerModel = getModelForClass(Owner, { schemaOptions: { collection: '' } })
-export const OwnerModel = getModelForClass(Owner)
+export const Owners = getModelForClass(Owner)
