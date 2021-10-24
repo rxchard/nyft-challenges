@@ -2,15 +2,14 @@
   "compilerOptions": {
     "allowJs": true,
     "target": "es6",
-    "module": "commonjs",
+    "lib": ["es6"],
     "moduleResolution": "node",
     "outDir": "./dist/",
     "strict": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "types": ["@types/node"]
+    "experimentalDecorators": true
   },
   "exclude": [
     "node_modules",
