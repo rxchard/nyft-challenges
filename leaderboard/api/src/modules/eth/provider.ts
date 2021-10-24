@@ -1,7 +1,7 @@
 import { providers } from 'ethers'
 
 import { WebSocket } from 'ws'
-import { debug, warn } from '../../winston'
+import { debug, info, warn } from '../../winston'
 
 type SetupListener = (provider: providers.WebSocketProvider) => Promise<void>
 
@@ -13,9 +13,11 @@ interface SetupOptions {
 export class ManagedWebSocketProvider {
   private maxRetries: number
   private retries: number
-  //
+
   private setup: SetupListener
   private options: SetupOptions
+
+  private restartTimer?: NodeJS.Timeout
 
   constructor(setup: SetupListener, maxRetries: number, options: SetupOptions) {
     this.setup = setup
@@ -31,28 +33,35 @@ export class ManagedWebSocketProvider {
       this.options.network,
     )
 
-    // try to restart if the websocket dies
-    ;(provider._websocket as WebSocket).on('close', code => {
-      provider.removeAllListeners()
-      this.restart(code)
-    })
-
-    // call setup which exposes our internal provider
+    this.listenClose(provider)
     await this.setup(provider)
   }
 
-  private restart(code: number) {
-    debug('provider: socket close with code' + code)
-    if (code === 1000) return
+  private listenClose(provider: providers.WebSocketProvider) {
+    const wsock: WebSocket = provider._websocket
 
-    if (this.retries < this.maxRetries) {
-      this.retries++
+    wsock.on('close', code => {
+      debug('provider: socket close with code ' + code)
+      // Ignore NORMAL_CLOSURE
+      if (code === 1000) return
 
-      debug(`provider restarting: chance ${this.retries}/${this.maxRetries}`)
-      this.start()
+      provider.removeAllListeners()
+      this.restart()
+    })
+  }
+
+  public restart() {
+    // clearing here because this is public
+    if (this.restartTimer) clearTimeout(this.restartTimer)
+
+    if (this.retries === this.maxRetries) {
+      warn('provider: could not restart: ran out of retries')
       return
     }
 
-    warn('provider: could not restart: ran out of retries')
+    info(`provider restarting: chance ${this.retries++}/${this.maxRetries}`)
+
+    this.restartTimer = setTimeout(() => (this.retries = 0), 10 * 1000)
+    this.start()
   }
 }
