@@ -42,8 +42,8 @@ export class ManagedWebSocketProvider {
   }
 
   private restart(code: number) {
-    console.log(code)
-    if (code !== 1011) return
+    debug('provider: socket close with code' + code)
+    if (code === 1000) return
 
     if (this.retries < this.maxRetries) {
       this.retries++
