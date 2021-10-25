@@ -90,5 +90,5 @@ export async function indexTransfer(event: ethers.Event): Promise<boolean> {
     },
   })
 
-  return el && indexOwner(el.args)
+  return el && (await indexOwner(el.args))
 }

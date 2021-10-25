@@ -1,14 +1,23 @@
 import { providers } from 'ethers'
-
 import WebSocket from 'ws'
+
 import { debug, error, info, warn } from '../../winston'
+import { activeCheckSocket } from '../../util/wsutil'
 
-type SetupListener = (provider: providers.WebSocketProvider) => Promise<void>
+export type Provider = providers.WebSocketProvider
+export const Provider = providers.WebSocketProvider
 
-interface SetupOptions {
+export type SetupListener = (
+  provider: providers.WebSocketProvider,
+) => Promise<any>
+
+export interface SetupOptions {
   url: string
   network?: providers.Networkish
 }
+
+const RESTART_DELAY = 1000
+const RESET_TIMEOUT = 1000 * 30
 
 export class ManagedWebSocketProvider {
   private maxRetries: number
@@ -28,43 +37,20 @@ export class ManagedWebSocketProvider {
   }
 
   public async start() {
-    const provider = new providers.WebSocketProvider(
-      this.options.url,
-      this.options.network,
-    )
+    const provider = new Provider(this.options.url, this.options.network)
 
-    this.listenClose(provider)
+    this.listenEvents(provider)
     await this.setup(provider)
   }
 
-  private listenStale(socket: WebSocket) {
-    const closed = () =>
-      socket.readyState === WebSocket.CLOSING ||
-      socket.readyState === WebSocket.CLOSED
-
-    if (closed()) return
-
-    const cb = setTimeout(() => {
-      if (closed()) return
-
-      debug('websocket closing due to stale connection')
-      socket.close(4000)
-    }, 5 * 1000)
-
-    socket.once('pong', () => clearTimeout(cb))
-    socket.ping()
-
-    setTimeout(() => this.listenStale(socket), 10 * 1000)
-  }
-
-  private listenClose(provider: providers.WebSocketProvider) {
+  private listenEvents(provider: Provider) {
     const socket: WebSocket = provider._websocket
 
     socket.on('error', error)
 
     socket.on('open', () => {
       debug('websocket connected')
-      this.listenStale(socket)
+      activeCheckSocket(socket)
     })
 
     socket.once('close', code => {
@@ -74,7 +60,7 @@ export class ManagedWebSocketProvider {
 
       provider.removeAllListeners()
       // set timeout here so we don't end up spamming the endpoint
-      setTimeout(() => this.restart(), 1000)
+      setTimeout(() => this.restart(), RESTART_DELAY)
     })
   }
 
@@ -90,7 +76,7 @@ export class ManagedWebSocketProvider {
 
     info(`provider restarting: chance ${++this.retries}/${this.maxRetries}`)
 
-    this.restartTimer = setTimeout(() => (this.retries = 0), 30 * 1000)
+    this.restartTimer = setTimeout(() => (this.retries = 0), RESET_TIMEOUT)
     this.start()
   }
 }
