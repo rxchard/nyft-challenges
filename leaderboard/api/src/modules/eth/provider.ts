@@ -1,7 +1,7 @@
 import { providers } from 'ethers'
 
-import { WebSocket } from 'ws'
-import { debug, info, warn } from '../../winston'
+import WebSocket from 'ws'
+import { debug, error, info, warn } from '../../winston'
 
 type SetupListener = (provider: providers.WebSocketProvider) => Promise<void>
 
@@ -37,16 +37,44 @@ export class ManagedWebSocketProvider {
     await this.setup(provider)
   }
 
-  private listenClose(provider: providers.WebSocketProvider) {
-    const wsock: WebSocket = provider._websocket
+  private listenStale(socket: WebSocket) {
+    const closed = () =>
+      socket.readyState === WebSocket.CLOSING ||
+      socket.readyState === WebSocket.CLOSED
 
-    wsock.on('close', code => {
-      debug('provider: socket close with code ' + code)
+    if (closed()) return
+
+    const cb = setTimeout(() => {
+      if (closed()) return
+
+      debug('websocket closing due to stale connection')
+      socket.close(4000)
+    }, 5 * 1000)
+
+    socket.once('pong', () => clearTimeout(cb))
+    socket.ping()
+
+    setTimeout(() => this.listenStale(socket), 10 * 1000)
+  }
+
+  private listenClose(provider: providers.WebSocketProvider) {
+    const socket: WebSocket = provider._websocket
+
+    socket.on('error', error)
+
+    socket.on('open', () => {
+      debug('websocket connected')
+      this.listenStale(socket)
+    })
+
+    socket.once('close', code => {
+      debug('websocket closed: ' + code)
       // Ignore NORMAL_CLOSURE
       if (code === 1000) return
 
       provider.removeAllListeners()
-      this.restart()
+      // set timeout here so we don't end up spamming the endpoint
+      setTimeout(() => this.restart(), 1000)
     })
   }
 
@@ -55,13 +83,14 @@ export class ManagedWebSocketProvider {
     if (this.restartTimer) clearTimeout(this.restartTimer)
 
     if (this.retries === this.maxRetries) {
+      console.log(this.retries)
       warn('provider: could not restart: ran out of retries')
       return
     }
 
-    info(`provider restarting: chance ${this.retries++}/${this.maxRetries}`)
+    info(`provider restarting: chance ${++this.retries}/${this.maxRetries}`)
 
-    this.restartTimer = setTimeout(() => (this.retries = 0), 10 * 1000)
+    this.restartTimer = setTimeout(() => (this.retries = 0), 30 * 1000)
     this.start()
   }
 }
