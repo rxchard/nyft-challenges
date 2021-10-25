@@ -40,9 +40,20 @@ async function syncBlocks(contract: ethers.Contract) {
 }
 
 function syncEvents(contract: ethers.Contract) {
-  contract.on(contract.filters.TransferSingle(), event => {
+  const index = async (...args: any[]) => {
+    // if (args.length === 0) return
+
+    const event: ethers.Event = args[args.length - 1]
     console.log(event)
-  })
+
+    const indexed = await indexTransfer(event)
+    indexed
+      ? info(`sync: indexed ${event.event}, ${event.transactionHash}`)
+      : warn(`sync: failed to index ${event.event}, ${event.transactionHash}`)
+  }
+
+  contract.on(contract.filters.TransferSingle(), index)
+  contract.on(contract.filters.TransferBatch(), index)
 
   info('sync: listening to contract events')
 }
@@ -58,8 +69,6 @@ export const sync = new ManagedWebSocketProvider(
     // Sync from best block -> compensate for downtime
     await syncBlocks(contract)
     syncEvents(contract)
-
-    // provider.on('block', console.log)
   },
   5,
   { url: cconf.provider },
