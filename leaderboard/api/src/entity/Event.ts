@@ -1,6 +1,6 @@
 import { BigNumber } from '@ethersproject/bignumber'
 import { prop, getModelForClass } from '@typegoose/typegoose'
-import { BigNumberOpt } from '../store/types'
+import { BigNumberOpt } from '../types/BigNumberProp'
 
 export class EventArgs {
   @prop() operator!: string

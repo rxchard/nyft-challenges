@@ -2,23 +2,18 @@ import Koa from 'koa'
 import helmet from 'koa-helmet'
 
 import { ApolloServer } from 'apollo-server-koa'
-import { buildSchema } from 'type-graphql'
 
 import { connect } from './store/compass'
 import { info, debug, error, warn } from './winston'
+import { loadSchema } from './schema'
 
 import { sync } from './modules/eth/sync'
-
-import { ProfileResolver } from './modules/owner/Profile'
-import { LeaderboardResolver } from './modules/owner/Leaderboard'
 
 async function server() {
   await connect()
   await sync.start()
 
-  const schema = await buildSchema({
-    resolvers: [ProfileResolver, LeaderboardResolver],
-  })
+  const schema = await loadSchema()
 
   const server = new ApolloServer({
     logger: { info, debug, error, warn },
