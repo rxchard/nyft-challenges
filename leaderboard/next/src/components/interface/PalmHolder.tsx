@@ -1,17 +1,17 @@
 import React from 'react'
 
-import { Link } from '../util/Link'
+import { Link } from '../Link'
 
-interface HolderProps {
+export interface PalmHolderProps {
   address?: string
   points?: number
 }
 
-export const PalmHolder: React.FC<HolderProps> = ({
+export const PalmHolder: React.FC<PalmHolderProps> = ({
   address = '0x0000000000000000000000000000000000000000',
   points = 12,
 }) => (
-  <div className="w-full text-center bg-black bg-opacity-50 rounded-xl">
+  <div className="w-full text-center text-white bg-black bg-opacity-50 rounded-xl">
     <div className="flex flex-row items-center justify-between p-4 rounded-xl space-x-4 bg-ndark bg-opacity-60">
       <div className="flex flex-row items-center space-x-4">
         <div className="w-12 rounded-full overflow-hidden">

@@ -1,5 +1,6 @@
 import React from 'react'
-import { Link } from './util/Link'
+
+import { Link } from '../../Link'
 
 export const Header: React.FC = () => {
   return (

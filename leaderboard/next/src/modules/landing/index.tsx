@@ -1,8 +1,8 @@
 import type { NextPage } from 'next'
 
-import { HeadController } from '../util/HeadController'
+import { HeadController } from '../control/HeadController'
 import { DefaultLayout } from '../layouts/Default'
-import { PalmHolder } from './PalmHolder'
+import { PalmHolder } from '../../components/interface/PalmHolder'
 
 export const LandingPage: NextPage = () => (
   <>
