@@ -1,10 +1,10 @@
-import { ArgsType, Field } from 'type-graphql'
+import { ArgsType, Field, Int } from 'type-graphql'
 
 @ArgsType()
 export class Pagination {
-  @Field()
+  @Field(() => Int)
   skip: number = 0
 
-  @Field()
+  @Field(() => Int)
   limit: number = 25
 }
