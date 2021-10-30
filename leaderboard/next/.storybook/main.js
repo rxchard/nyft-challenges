@@ -1,3 +1,5 @@
+const path = require('path')
+
 module.exports = {
   core: {
     builder: 'webpack5',
@@ -14,6 +16,8 @@ module.exports = {
       test: /\.(scss|css)$/,
       use: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader'],
     })
+
+    config.resolve.alias['@'] = path.resolve(__dirname, '../src')
 
     // Return the altered config
     return config
