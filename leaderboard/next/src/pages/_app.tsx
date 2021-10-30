@@ -1,10 +1,11 @@
 import '../styles/globals.scss'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
+import { Web3Provider } from '../components/Web3Provider'
 
 function App({ Component, pageProps }: AppProps) {
   return (
-    <>
+    <Web3Provider>
       <Head>
         <link rel="icon" href="/favicon.ico" type="image/x-icon" />
         <meta
@@ -13,7 +14,7 @@ function App({ Component, pageProps }: AppProps) {
         />
       </Head>
       <Component {...pageProps} />
-    </>
+    </Web3Provider>
   )
 }
 

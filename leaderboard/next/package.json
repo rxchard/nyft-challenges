@@ -9,20 +9,25 @@
     "lint:js": "next lint",
     "lint:style": "stylelint \"src/**/*.{ts,tsx,css,scss,sass}\" --ignore-path .gitignore",
     "lint": "npm run lint:style && npm run lint:js",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "storybook": "start-storybook -p 6006 -s ./public",
+    "build-storybook": "build-storybook -s ./public"
   },
   "dependencies": {
-    "next": "11.1.2",
+    "@davatar/react": "^1.8.1",
+    "@web3-react/core": "^6.1.9",
+    "@web3-react/injected-connector": "^6.0.7",
+    "ethers": "^5.5.1",
+    "next": "^11.1.2",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "react-feather": "^2.0.9",
+    "styled-components": "^5.3.3"
   },
   "devDependencies": {
     "@babel/core": "^7.15.8",
     "@storybook/addon-actions": "^6.3.12",
     "@storybook/addon-essentials": "^6.3.12",
     "@storybook/addon-links": "^6.3.12",
-    "@storybook/addon-postcss": "^2.0.0",
     "@storybook/builder-webpack5": "^6.3.12",
     "@storybook/manager-webpack5": "^6.3.12",
     "@storybook/react": "^6.3.12",
@@ -30,6 +35,9 @@
     "@types/react": "17.0.30",
     "autoprefixer": "^10.3.7",
     "babel-loader": "^8.2.3",
+    "babel-plugin-macros": "^3.1.0",
+    "babel-plugin-styled-components": "^1.13.3",
+    "cross-env": "^7.0.3",
     "css-loader": "^6.5.0",
     "eslint": "^7.32.0",
     "eslint-config-next": "11.1.2",
@@ -37,7 +45,6 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.26.1",
     "eslint-plugin-react-hooks": "^4.2.0",
-    "html-webpack-plugin": "^5.5.0",
     "postcss": "^8.3.9",
     "postcss-import": "^14.0.2",
     "postcss-loader": "^6.2.0",
@@ -52,6 +59,8 @@
     "stylelint-order": "^4.1.0",
     "stylelint-scss": "^3.21.0",
     "tailwindcss": "^2.2.17",
-    "typescript": "4.4.4"
+    "twin.macro": "^2.8.0",
+    "typescript": "4.4.4",
+    "webpack": "^5.60.0"
   }
 }

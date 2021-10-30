@@ -7,6 +7,10 @@ body,
   @apply font-default h-full w-full flex flex-col;
 }
 
+#__next {
+  @apply bg-darked-900;
+}
+
 a {
   color: inherit;
   text-decoration: none;

@@ -1,16 +1,25 @@
 import React from 'react'
+import tw from 'twin.macro'
 
 import { Link } from '../../Link'
+import { Container } from '../util/Container'
+import { Web3Status } from '../Web3Status'
+
+const HeaderFrame = tw.div`flex flex-row justify-end`
+
+const NavList = tw.div`flex items-center space-x-8 text-xl text-white`
 
 export const Header: React.FC = () => {
   return (
-    <div className="w-full flex flex-row justify-end p-8 bg-ndark">
-      <div className="uppercase font-default text-white text-xl space-x-8">
-        <Link external={true} url="https://niftyisland.com">
-          Metaverse
-        </Link>
-        <Link url="connect">Connect Discord</Link>
-      </div>
-    </div>
+    <Container>
+      <HeaderFrame>
+        <NavList>
+          <Link external={true} url="https://niftyisland.com">
+            Metaverse
+          </Link>
+          <Web3Status />
+        </NavList>
+      </HeaderFrame>
+    </Container>
   )
 }

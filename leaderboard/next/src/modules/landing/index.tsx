@@ -1,23 +1,25 @@
 import type { NextPage } from 'next'
+import tw from 'twin.macro'
 
-import { HeadController } from '../control/HeadController'
+import { HeadController } from '../../components/HeadController'
 import { DefaultLayout } from '../layouts/Default'
-import { PalmHolder } from '../../components/interface/PalmHolder'
+import { Leaderboard } from '../../components/interface/Leaderboard'
+import { Container } from '../../components/interface/util/Container'
+
+const LandingFrame = tw.div`z-10 flex flex-col items-center h-full`
+
+const Title = tw.h1`p-8 text-4xl text-center uppercase text-nlight`
 
 export const LandingPage: NextPage = () => (
   <>
     <HeadController title="Leaderboard" />
     <DefaultLayout>
-      <div className="h-full bg-ndark text-white flex flex-col items-center pt-8">
-        <div className="w-1/4 relative">
-          <h1 className="text-center text-4xl mt-4 uppercase">
-            Legendary Leaderboard
-          </h1>
-        </div>
-        <div className="w-1/2 mt-24">
-          <PalmHolder />
-        </div>
-      </div>
+      <Container>
+        <LandingFrame>
+          <Title>Legendary Leaderboard</Title>
+          <Leaderboard />
+        </LandingFrame>
+      </Container>
     </DefaultLayout>
   </>
 )
