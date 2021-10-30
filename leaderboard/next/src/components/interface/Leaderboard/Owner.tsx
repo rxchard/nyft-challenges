@@ -41,6 +41,6 @@ export const Owner: React.FC<OwnerProps> = ({
         <ValueIcon />
       </Valuation>
     </DetailFrame>
-    {description ? <Description>description</Description> : null}
+    {description ? <Description>{description}</Description> : null}
   </OwnerFrame>
 )
