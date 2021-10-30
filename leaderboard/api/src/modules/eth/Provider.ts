@@ -16,7 +16,7 @@ export interface SetupOptions {
   network?: providers.Networkish
 }
 
-const RESTART_DELAY = 1000
+const RESTART_DELAY = 1000 * 5
 const RESET_TIMEOUT = 1000 * 30
 
 export class ManagedWebSocketProvider {
