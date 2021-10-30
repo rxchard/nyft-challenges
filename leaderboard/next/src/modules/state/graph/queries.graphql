@@ -1,0 +1,6 @@
+query Leaderboard($limit: Int, $skip: Int) {
+  currentLeaderboard(limit: $limit, skip: $skip) {
+    valuation
+    address
+  }
+}

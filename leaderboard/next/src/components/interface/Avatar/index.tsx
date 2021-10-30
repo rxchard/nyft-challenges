@@ -7,7 +7,7 @@ export interface AvatarProps {
   size?: number
 }
 
-const AvatarFrame = tw.div`rounded-full ring-2 ring-mandy-400`
+const AvatarFrame = tw.div`rounded-full`
 
 export const Avatar: React.FC<AvatarProps> = ({ address, size = 16 }) => {
   return (

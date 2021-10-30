@@ -1,0 +1,12 @@
+schema: ${NEXT_PUBLIC_API_BASE}
+overwrite: true
+documents: 'src/**/*.graphql'
+generates:
+  ./src/modules/state/graph/types.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-react-apollo
+    config:
+      withHooks: true
+      skipTypename: true

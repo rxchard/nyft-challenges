@@ -4,7 +4,7 @@
 html,
 body,
 #__next {
-  @apply font-default h-full w-full flex flex-col;
+  @apply font-default min-h-screen w-full flex flex-col;
 }
 
 #__next {
