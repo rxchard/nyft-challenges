@@ -2,7 +2,7 @@ import React from 'react'
 import { UnsupportedChainIdError, useWeb3React } from '@web3-react/core'
 import { AlertTriangle } from 'react-feather'
 import tw from 'twin.macro'
-import { Avatar } from '../Avatar.tsx'
+import { Avatar } from '../Avatar'
 import { makeShortAddress } from '../../../modules/util/address'
 import { InjectedConnector } from '@web3-react/injected-connector'
 
