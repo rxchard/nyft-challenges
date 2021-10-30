@@ -1,10 +1,10 @@
 import type { NextPage } from 'next'
 import tw from 'twin.macro'
 
-import { HeadController } from '../../components/HeadController'
 import { DefaultLayout } from '../layouts/Default'
-import { Leaderboard } from '../../components/interface/Leaderboard'
-import { Container } from '../../components/interface/util/Container'
+import { HeadController } from '@/components/HeadController'
+import { Leaderboard } from '@/components/interface/Leaderboard'
+import { Container } from '@/components/interface/util/Container'
 
 const LandingFrame = tw.div`z-10 flex flex-col items-center h-full`
 
