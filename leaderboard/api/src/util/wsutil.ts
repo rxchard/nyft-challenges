@@ -1,8 +1,8 @@
 import WebSocket from 'ws'
 import { debug } from '../winston'
 
-const PING_TIMEOUT = 1000 * 5
-const CHECK_INTERVAL = 1000 * 10
+const PING_TIMEOUT = 5_000
+const CHECK_INTERVAL = 10_000
 
 export function isSocketAlive(socket: WebSocket) {
   return (
