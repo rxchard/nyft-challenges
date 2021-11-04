@@ -69,6 +69,11 @@ export class TransferSync {
       const event: ethers.Event = args[args.length - 1]
       console.log(event)
 
+      if (event.removed) {
+        warn(`sync: skip index ${event.event}, ${event.transactionHash}`)
+        return
+      }
+
       const indexed = await indexTransfer(event)
       indexed
         ? info(`sync: indexed ${event.event}, ${event.transactionHash}`)
