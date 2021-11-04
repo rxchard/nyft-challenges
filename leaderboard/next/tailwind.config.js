@@ -3,13 +3,6 @@ module.exports = {
   purge: ['src/**/*.{ts,tsx}'],
   theme: {
     extend: {
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-      },
-      screens: {
-        portrait: { raw: '(orientation: portrait)' },
-        '3xl': '1842px',
-      },
       colors: {
         darked: {
           300: '#c6bbcc',
@@ -52,6 +45,16 @@ module.exports = {
           'arial',
           'sans-serif',
         ],
+      },
+      zIndex: {
+        '-1': -1,
+      },
+      backgroundImage: {
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+      },
+      screens: {
+        portrait: { raw: '(orientation: portrait)' },
+        '3xl': '1842px',
       },
     },
   },
