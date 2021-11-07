@@ -86,6 +86,8 @@ export async function indexTransfer(event: ethers.Event): Promise<boolean> {
     args: {
       ...event.args,
       ids: event.args.id || event.args.ids,
+      // Note: for TransferBatch events, the ABI input name needs to be changed
+      // from "values" to "_values" because array.values is reserved and ethers.js doesn't handle this properly
       values: event.args.value || event.args._values,
     },
   })

@@ -1,4 +1,4 @@
-import { useLeaderboardQuery } from '@/modules/state/graph'
+import { useLeaderboardQuery } from '@/modules/hooks/graph'
 import React from 'react'
 import tw from 'twin.macro'
 import { Owner } from './Owner'
@@ -14,8 +14,11 @@ export const Leaderboard: React.FC = () => {
 
   return (
     <LeaderboardFrame>
-      {data.currentLeaderboard.map(({ address, valuation }, i) => (
-        <Owner address={address} valuation={valuation} key={i} />
+      {data.currentLeaderboard.map(({ address, valuation, details }, i) => (
+        <Owner
+          {...{ address, valuation, name: details?.name, text: details?.text }}
+          key={i}
+        />
       ))}
     </LeaderboardFrame>
   )

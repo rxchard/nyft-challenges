@@ -1,0 +1,34 @@
+query Leaderboard($limit: Int, $skip: Int) {
+  currentLeaderboard(limit: $limit, skip: $skip) {
+    details {
+      text
+      name
+    }
+    valuation
+    address
+  }
+}
+
+mutation UpdateDetails(
+  $address: String!
+  $signature: String!
+  $name: String
+  $text: String
+) {
+  updateDetails(
+    address: $address
+    signature: $signature
+    name: $name
+    text: $text
+  ) {
+    address
+    details {
+      text
+      name
+    }
+  }
+}
+
+query FindRank($address: String!) {
+  findRank(address: $address)
+}

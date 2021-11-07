@@ -1,5 +1,6 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/utilities';
+@import '@reach/dialog/styles.css';
 
 html,
 body,
@@ -9,6 +10,7 @@ body,
 
 #__next {
   @apply bg-darked-900;
+  // @apply bg-black;
 }
 
 a {

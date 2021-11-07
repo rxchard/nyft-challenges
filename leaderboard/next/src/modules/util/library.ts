@@ -5,3 +5,10 @@ export function getLibrary(provider: any): Web3Provider {
   library.pollingInterval = 12_000
   return library
 }
+
+export async function signMessage(
+  library: Web3Provider,
+  message: string,
+): Promise<string> {
+  return library.getSigner().signMessage(message)
+}

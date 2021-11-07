@@ -23,6 +23,22 @@ export class Balance {
 }
 
 @ObjectType()
+export class Details {
+  // Custom name, replaces ens/address
+  @Field({ nullable: true })
+  @prop()
+  name?: string
+
+  // Custom paragraph below the address/name
+  @Field({ nullable: true })
+  @prop()
+  text?: string
+
+  @prop()
+  signature!: string
+}
+
+@ObjectType()
 @pre<Owner>('save', function () {
   this.valuation = this.balance.evaluate()
 })
@@ -39,6 +55,10 @@ export class Owner {
   @Field()
   @prop()
   valuation!: number
+
+  @Field({ nullable: true })
+  @prop({ type: Details, _id: false })
+  details?: Details
 }
 
 export const Owners = getModelForClass(Owner)
