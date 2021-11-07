@@ -35,7 +35,7 @@ export class Details {
   text?: string
 
   @prop()
-  signature!: string
+  signature?: string
 }
 
 @ObjectType()

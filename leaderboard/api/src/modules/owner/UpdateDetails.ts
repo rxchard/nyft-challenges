@@ -1,13 +1,14 @@
 import { ethers } from 'ethers'
 import { Args, ArgsType, Field, Mutation, Resolver } from 'type-graphql'
 import { Owner, Owners } from '../../entity/Owner'
+import { error } from '../../winston'
 
 @ArgsType()
 export class DetailsArgs {
   @Field() address!: string
   @Field() signature!: string
-  @Field({ nullable: true }) name?: string
-  @Field({ nullable: true }) text?: string
+  @Field({ nullable: true }) name: string = ''
+  @Field({ nullable: true }) text: string = ''
 }
 
 @Resolver()
@@ -16,6 +17,9 @@ export class UpdateDetailsResolver {
   async updateDetails(
     @Args() { address, name, text, signature }: DetailsArgs,
   ): Promise<Owner | null> {
+    name = name.trim()
+    text = text.trim()
+
     // both empty is not accepted
     if (!name && !text) return null
 
@@ -38,14 +42,16 @@ export class UpdateDetailsResolver {
         return null
       }
 
-      owner.details = {
-        name,
-        text,
-        signature,
-      }
+      if (!owner.details) owner.details = {}
+
+      owner.details.signature = signature
+
+      if (name) owner.details.name = name
+      if (text) owner.details.text = text
 
       return owner.save()
     } catch (err) {
+      error(err as string)
       return null
     }
   }
