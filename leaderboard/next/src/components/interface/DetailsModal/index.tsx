@@ -24,7 +24,7 @@ const Disclaimer = tw.div`p-4 border rounded-xl bg-darked-700 border-darked-600`
 
 export const DetailsModal: React.FC = () => {
   const modal = Modal.DETAILS
-  const toggleSelf = useToggleModal(modal)
+  const toggleSelf = useToggleModal(Modal.DETAILS)
 
   return (
     <ModalBase modal={modal}>
@@ -36,7 +36,7 @@ export const DetailsModal: React.FC = () => {
         <Disclaimer>
           {`Note: After confirming, you'll be asked to sign a message with your wallet to confirm your identity. Display names take priority over your ENS name.`}
         </Disclaimer>
-        <DetailsInput />
+        <DetailsInput modal={modal} />
       </ContentFrame>
     </ModalBase>
   )

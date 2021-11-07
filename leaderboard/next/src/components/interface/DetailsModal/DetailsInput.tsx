@@ -1,42 +1,58 @@
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import tw from 'twin.macro'
 import styled from 'styled-components'
 import { useEthersWeb3React } from '@/modules/hooks/web3'
 import { useUpdateDetailsMutation } from '@/modules/hooks/graph'
 import { signMessage } from '@/modules/util/library'
+import { Modal } from '@/modules/state/modal'
+import { useIsActiveModal, useToggleModal } from '@/modules/state/modal/hooks'
 
 const InputContainer = tw.div`space-y-2`
 
 const StyledInput = tw.input`w-full p-4 text-white outline-none placeholder-darked-600 bg-darked-800 rounded-xl`
 
-const StyledButton = styled.button(({ highlight }: { highlight: boolean }) => [
-  tw`w-full p-4 rounded-xl `,
-  !highlight && tw`bg-darked-700 text-darked-600`,
-  highlight && tw`text-white bg-mandy-500`,
-])
+const StyledButton = tw.button`
+  w-full p-4 rounded-xl text-white bg-mandy-500 
+  disabled:(cursor-default bg-darked-700 text-darked-600)`
 
-export const DetailsInput: React.FC = () => {
-  const [name, setName] = useState<string>()
-  const [text, setText] = useState<string>()
+export interface DetailsInputProps {
+  modal: Modal
+}
+
+export const DetailsInput: React.FC<DetailsInputProps> = ({ modal }) => {
+  const activeModal = useIsActiveModal(modal)
+  const toggleModal = useToggleModal(modal)
+
+  const [name, setName] = useState('')
+  const [text, setText] = useState('')
+
+  const trimName = useMemo(() => name.trim(), [name])
+  const trimText = useMemo(() => text.trim(), [text])
 
   const { account, library } = useEthersWeb3React()
 
-  const [updateDetailsMutation, { data, loading, error }] =
-    useUpdateDetailsMutation()
+  const [updateDetailsMutation, { loading, error }] = useUpdateDetailsMutation()
+
+  const allowed = useMemo(
+    () => !error && !loading && (!!trimName || !!trimText),
+    [error, loading, trimName, trimText],
+  )
 
   const mutateDetails = async () => {
-    if (!library || !account || (!name && !text)) return
+    if (!library || !account || !allowed) return
 
-    const signature = await signMessage(library, [name, text].join(':'))
+    const signature = await signMessage(library, [trimName, trimText].join(':'))
 
-    updateDetailsMutation({
+    await updateDetailsMutation({
       variables: {
         address: account,
-        name,
-        text,
+        name: trimName,
+        text: trimText,
         signature,
       },
     })
+
+    if (activeModal && allowed) toggleModal()
   }
 
   return (
@@ -55,8 +71,8 @@ export const DetailsInput: React.FC = () => {
           onChange={e => setText(e.target.value)}
         />
       </InputContainer>
-      <StyledButton highlight={!!name || !!text} onClick={mutateDetails}>
-        Apply
+      <StyledButton disabled={!allowed} onClick={mutateDetails}>
+        {error ? 'Error' : loading ? 'Loading...' : 'Apply'}
       </StyledButton>
     </>
   )
