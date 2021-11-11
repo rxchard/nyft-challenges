@@ -29,8 +29,9 @@ export const Owner: React.FC<OwnerProps> = ({
   valuation = -1,
   name,
   text,
+  ...rest
 }) => (
-  <OwnerFrame>
+  <OwnerFrame {...rest}>
     <DetailFrame>
       <NamedAvatar>
         <Avatar address={address} size={42} />
