@@ -3,7 +3,7 @@ import tw from 'twin.macro'
 
 import { useLeaderboardQuery } from '@/modules/hooks/graph'
 import { OwnerList } from './OwnerList'
-import { ScrollObserver } from './ScrollObserver'
+import { ScrollObserver } from '@/components/ScrollObserver'
 
 const BoardFrame = tw.div`flex flex-col items-center w-full space-y-12 text-white md:w-1/2`
 
