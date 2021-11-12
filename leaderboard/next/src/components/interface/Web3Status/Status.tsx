@@ -5,12 +5,12 @@ import tw from 'twin.macro'
 import { Avatar } from '../Avatar'
 import { makeShortAddress } from '@/modules/util/address'
 
-const StatusWrapper = tw.div`inline-block bg-darked-800 rounded-xl`
-const StatusFrame = tw.div`inline-flex flex-row items-center pt-1 pb-1 pl-4 pr-4 space-x-2 rounded-xl bg-mandy-500 hover:cursor-pointer flex-nowrap`
+const Container = tw.div`inline-flex flex-row items-center bg-darked-800 rounded-xl`
 
-const StatusText = tw.p`text-white`
+const Content = tw.div`flex flex-row items-center p-1 pl-4 pr-4 space-x-2 flex-nowrap`
+const MainContent = tw(Content)`bg-mandy-500 rounded-xl hover:cursor-pointer`
 
-const Rank = tw.span`pl-4 pr-4 text-white`
+const Text = tw.p`text-white whitespace-nowrap`
 
 const NetworkErrorIcon = tw(AlertTriangle)`w-4 h-4 text-white`
 
@@ -18,7 +18,8 @@ export interface Web3StatusProps {
   address?: string | null
   rank?: number | null
   error?: Error
-  onAcivate: () => any
+  onAcivate?: () => any
+  onWantEdit?: () => any
 }
 
 export const Web3StatusBase: React.FC<Web3StatusProps> = ({
@@ -26,35 +27,40 @@ export const Web3StatusBase: React.FC<Web3StatusProps> = ({
   error,
   rank,
   onAcivate,
+  onWantEdit,
 }) => {
   if (error) {
     return (
-      <StatusFrame>
-        <NetworkErrorIcon />
-        <StatusText>
-          {error instanceof UnsupportedChainIdError
-            ? 'Incorrect Network'
-            : 'Error'}
-        </StatusText>
-      </StatusFrame>
+      <Container>
+        <MainContent>
+          <NetworkErrorIcon />
+          <Text>
+            {error instanceof UnsupportedChainIdError
+              ? 'Incorrect Network'
+              : 'Error'}
+          </Text>
+        </MainContent>
+      </Container>
     )
   }
 
   if (address) {
     return (
-      <StatusWrapper>
-        {rank && <Rank># {rank}</Rank>}
-        <StatusFrame>
-          <StatusText>{makeShortAddress(address)}</StatusText>
+      <Container>
+        <Content>{rank && <Text># {rank}</Text>}</Content>
+        <MainContent onClick={onWantEdit}>
+          <Text>{makeShortAddress(address)}</Text>
           <Avatar address={address} />
-        </StatusFrame>
-      </StatusWrapper>
+        </MainContent>
+      </Container>
     )
   }
 
   return (
-    <StatusFrame onClick={onAcivate}>
-      <StatusText>Connect Wallet</StatusText>
-    </StatusFrame>
+    <Container onClick={onAcivate}>
+      <MainContent>
+        <Text>Connect Wallet</Text>
+      </MainContent>
+    </Container>
   )
 }

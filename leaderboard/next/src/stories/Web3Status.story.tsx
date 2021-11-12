@@ -11,7 +11,7 @@ export default {
 } as Meta
 
 const Template: Story<Web3StatusProps> = ({ ...props }) => (
-  <Web3StatusBase {...props} onAcivate={() => {}} />
+  <Web3StatusBase {...props} />
 )
 
 export const Main = Template.bind({})
