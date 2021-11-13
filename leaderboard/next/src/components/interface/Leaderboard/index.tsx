@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import tw from 'twin.macro'
 
 import { useLeaderboardQuery } from '@/modules/hooks/graph'
@@ -14,23 +14,21 @@ export const Leaderboard: React.FC = () => {
     variables: { limit: 10 },
   })
 
-  const queryMore = useCallback(
-    () =>
-      fetchMore({
-        variables: { skip: data?.currentLeaderboard.length ?? 0 },
-        updateQuery: (prevResult, { fetchMoreResult }) => {
-          if (!fetchMoreResult) return prevResult
+  const queryMore = useCallback(async () => {
+    await fetchMore({
+      variables: { skip: data?.currentLeaderboard.length ?? 0 },
+      updateQuery: (prevResult, { fetchMoreResult }) => {
+        if (!fetchMoreResult) return prevResult
 
-          return {
-            currentLeaderboard: [
-              ...prevResult.currentLeaderboard,
-              ...fetchMoreResult.currentLeaderboard,
-            ],
-          }
-        },
-      }),
-    [fetchMore, data],
-  )
+        return {
+          currentLeaderboard: [
+            ...prevResult.currentLeaderboard,
+            ...fetchMoreResult.currentLeaderboard,
+          ],
+        }
+      },
+    })
+  }, [fetchMore, data])
 
   if (error) {
     return (
@@ -51,7 +49,7 @@ export const Leaderboard: React.FC = () => {
   return (
     <BoardFrame>
       <OwnerList list={data.currentLeaderboard} />
-      {data && <ScrollObserver doIntersect={queryMore} />}
+      {data && <ScrollObserver doEnter={queryMore} />}
     </BoardFrame>
   )
 }

@@ -7,6 +7,7 @@ import { Provider } from 'react-redux'
 import { Web3Provider } from '@/components/Web3Provider'
 import { GraphProvider } from '@/components/GraphProvider'
 import { store } from '@/modules/state'
+import { StrictMode } from 'react'
 
 function App({ Component, pageProps }: AppProps) {
   return (
@@ -20,7 +21,9 @@ function App({ Component, pageProps }: AppProps) {
               content="width=device-width, initial-scale=1, user-scalable=no, user-scalable=0"
             />
           </Head>
-          <Component {...pageProps} />
+          <StrictMode>
+            <Component {...pageProps} />
+          </StrictMode>
         </GraphProvider>
       </Web3Provider>
     </Provider>
