@@ -1,6 +1,5 @@
 import React, { useMemo, useState } from 'react'
 import tw from 'twin.macro'
-import styled from 'styled-components'
 import { useEthersWeb3React } from '@/modules/hooks/web3'
 import { useUpdateDetailsMutation } from '@/modules/hooks/graph'
 import { signMessage } from '@/modules/util/library'
@@ -33,15 +32,16 @@ export const DetailsInput: React.FC<DetailsInputProps> = ({ modal }) => {
 
   const [updateDetailsMutation, { loading, error }] = useUpdateDetailsMutation()
 
-  const allowed = useMemo(
-    () => !error && !loading && (!!trimName || !!trimText),
-    [error, loading, trimName, trimText],
-  )
+  const allowed = useMemo(() => !error && !loading, [error, loading])
+  const empty = useMemo(() => !trimName && !trimText, [trimName, trimText])
 
   const mutateDetails = async () => {
     if (!library || !account || !allowed) return
 
-    const signature = await signMessage(library, [trimName, trimText].join(':'))
+    const signature = await signMessage(
+      library,
+      [trimName, trimText].map(v => v || 'empty').join(':'),
+    )
 
     await updateDetailsMutation({
       variables: {
@@ -72,7 +72,7 @@ export const DetailsInput: React.FC<DetailsInputProps> = ({ modal }) => {
         />
       </InputContainer>
       <StyledButton disabled={!allowed} onClick={mutateDetails}>
-        {error ? 'Error' : loading ? 'Loading...' : 'Apply'}
+        {error ? 'Error' : loading ? 'Loading...' : empty ? 'Reset' : 'Apply'}
       </StyledButton>
     </>
   )

@@ -4,7 +4,7 @@ import { Owner, Owners } from '../../entity/Owner'
 import { error } from '../../winston'
 
 @ArgsType()
-export class DetailsArgs {
+export class UpdateDetailsArgs {
   @Field() address!: string
   @Field() signature!: string
   @Field({ nullable: true }) name: string = ''
@@ -15,13 +15,10 @@ export class DetailsArgs {
 export class UpdateDetailsResolver {
   @Mutation(() => Owner, { nullable: true })
   async updateDetails(
-    @Args() { address, name, text, signature }: DetailsArgs,
+    @Args() { address, name, text, signature }: UpdateDetailsArgs,
   ): Promise<Owner | null> {
     name = name.trim()
     text = text.trim()
-
-    // both empty is not accepted
-    if (!name && !text) return null
 
     try {
       const owner = await Owners.findOne({ address })
@@ -30,24 +27,15 @@ export class UpdateDetailsResolver {
         return null
       }
 
-      // won't apply same signature twice
-      if (owner.details && owner.details.signature === signature) {
-        return owner
-      }
-
-      const message = [name, text].join(':')
+      const message = [name, text].map(v => v || 'empty').join(':')
       const recovered = await ethers.utils.verifyMessage(message, signature)
 
       if (recovered !== address) {
         return null
       }
 
-      if (!owner.details) owner.details = {}
-
-      owner.details.signature = signature
-
-      if (name) owner.details.name = name
-      if (text) owner.details.text = text
+      // apply change or set empty
+      owner.details = { name, text }
 
       return owner.save()
     } catch (err) {

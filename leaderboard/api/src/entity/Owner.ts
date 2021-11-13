@@ -33,9 +33,6 @@ export class Details {
   @Field({ nullable: true })
   @prop()
   text?: string
-
-  @prop()
-  signature?: string
 }
 
 @ObjectType()
