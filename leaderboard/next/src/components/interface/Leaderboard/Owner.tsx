@@ -3,7 +3,6 @@ import tw from 'twin.macro'
 
 import { Link } from '@/components/Link'
 import { Avatar } from '../Avatar'
-import { makeShortAddress } from '@/modules/util/address'
 import { BarChart2 } from 'react-feather'
 
 export interface OwnerProps {
@@ -13,15 +12,16 @@ export interface OwnerProps {
   text?: string
 }
 
-const OwnerFrame = tw.div`w-full mt-8 text-lg text-center text-white border bg-mandy-500 rounded-xl border-mandy-500`
+const OwnerFrame = tw.div`w-full mt-8 text-lg text-center text-white border-2 bg-darked-700 rounded-xl border-darked-600`
 
-const DetailFrame = tw.div`flex flex-row items-center justify-between p-4 space-x-4 rounded-xl bg-darked-800`
+const DetailFrame = tw.div`flex flex-row items-center justify-between p-4 space-x-4 rounded-xl bg-darked-900`
 
-const NamedAvatar = tw.div`flex flex-row items-center space-x-4`
+const NamedAvatar = tw.div`flex flex-row items-center max-w-full space-x-4 overflow-hidden`
+const TruncLink = tw(Link)`truncate`
 
-const Description = tw.p`p-2 text-mandy-100`
+const Description = tw.p`p-2 text-white`
 
-const Valuation = tw.p`space-x-2`
+const Valuation = tw.p`space-x-2 whitespace-nowrap`
 const ValueIcon = tw(BarChart2)`inline-block w-4 h-4 text-white`
 
 export const Owner: React.FC<OwnerProps> = ({
@@ -35,9 +35,12 @@ export const Owner: React.FC<OwnerProps> = ({
     <DetailFrame>
       <NamedAvatar>
         <Avatar address={address} size={42} />
-        <Link external={true} url={'https://etherscan.io/address/' + address}>
-          {name ? name : makeShortAddress(address)}
-        </Link>
+        <TruncLink
+          external={true}
+          url={'https://etherscan.io/address/' + address}
+        >
+          {name ? name : address}
+        </TruncLink>
       </NamedAvatar>
       <Valuation>
         <span>{valuation}</span>

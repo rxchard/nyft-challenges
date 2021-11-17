@@ -13,6 +13,7 @@ export const OwnerList: React.FC<OwnerListProps> = ({ list }) => {
   const trail = useTrail(list.length, {
     opacity: 1,
     from: { opacity: 0 },
+    config: { duration: 200 },
   })
 
   return (

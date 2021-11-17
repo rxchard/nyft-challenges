@@ -1,4 +1,4 @@
-import React, { MutableRefObject, useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 export interface ScrollObserverProps {
   doEnter: () => any

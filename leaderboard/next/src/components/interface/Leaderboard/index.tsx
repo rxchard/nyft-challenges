@@ -1,13 +1,13 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback } from 'react'
 import tw from 'twin.macro'
 
 import { useLeaderboardQuery } from '@/modules/hooks/graph'
 import { OwnerList } from './OwnerList'
 import { ScrollObserver } from '@/components/ScrollObserver'
 
-const BoardFrame = tw.div`flex flex-col items-center w-full space-y-12 text-white md:w-1/2`
+const BoardFrame = tw.div`flex flex-col items-center w-full max-w-4xl space-y-12 text-center text-white`
 
-const Notice = tw.div`text-mandy-500 font-head`
+const Notice = tw.div`font-head`
 
 export const Leaderboard: React.FC = () => {
   const { data, error, loading, fetchMore } = useLeaderboardQuery({

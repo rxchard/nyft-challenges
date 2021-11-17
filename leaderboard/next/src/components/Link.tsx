@@ -10,9 +10,10 @@ export const Link: React.FC<LinkProps> = ({
   children,
   external = false,
   url,
+  ...rest
 }) =>
   external ? (
-    <a href={url} rel="noreferrer noopener" target="_blank">
+    <a href={url} rel="noreferrer noopener" target="_blank" {...rest}>
       {children}
     </a>
   ) : (

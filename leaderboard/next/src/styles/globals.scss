@@ -9,8 +9,9 @@ body,
 }
 
 #__next {
-  @apply bg-darked-900;
-  // @apply bg-black;
+  background-image: url('/head_cut.png'), url('/fall.png');
+  background-repeat: no-repeat, repeat-y;
+  @apply bg-black bg-top bg-auto;
 }
 
 a {

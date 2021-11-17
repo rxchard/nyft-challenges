@@ -11,7 +11,7 @@ const InputContainer = tw.div`space-y-2`
 const StyledInput = tw.input`w-full p-4 text-white outline-none placeholder-darked-600 bg-darked-800 rounded-xl`
 
 const StyledButton = tw.button`
-  w-full p-4 rounded-xl text-white bg-mandy-500 
+  w-full p-4 rounded-xl text-white bg-darked-600 
   disabled:(cursor-default bg-darked-700 text-darked-600)`
 
 export interface DetailsInputProps {

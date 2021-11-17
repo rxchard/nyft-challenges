@@ -16,7 +16,7 @@ const StyledOverlay = tw(
 
 const AnimatedOverlay = animated(StyledOverlay)
 
-const ContentStyle = tw`w-1/4 p-0 text-white border-2 border-darked-700 rounded-xl bg-darked-900`
+const ContentStyle = tw`w-full max-w-xl p-0 m-8 text-white border-2 rounded-xl border-darked-700 bg-darked-900`
 
 const StyledContent = styled(DialogContent).attrs({ 'aria-label': 'dialog' })(
   ContentStyle,

@@ -8,7 +8,7 @@ import { makeShortAddress } from '@/modules/util/address'
 const Container = tw.div`inline-flex flex-row items-center bg-darked-800 rounded-xl`
 
 const Content = tw.div`flex flex-row items-center p-1 pl-4 pr-4 space-x-2 flex-nowrap`
-const MainContent = tw(Content)`bg-mandy-500 rounded-xl hover:cursor-pointer`
+const MainContent = tw(Content)`bg-darked-600 rounded-xl hover:cursor-pointer`
 
 const Text = tw.p`text-white whitespace-nowrap`
 
@@ -47,7 +47,11 @@ export const Web3StatusBase: React.FC<Web3StatusProps> = ({
   if (address) {
     return (
       <Container>
-        <Content>{rank && <Text># {rank}</Text>}</Content>
+        {rank && (
+          <Content>
+            <Text># {rank}</Text>
+          </Content>
+        )}
         <MainContent onClick={onWantEdit}>
           <Text>{makeShortAddress(address)}</Text>
           <Avatar address={address} />
