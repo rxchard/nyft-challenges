@@ -1,13 +1,40 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useEthersWeb3React } from '@/modules/hooks/web3'
 import { useFindRankLazyQuery } from '@/modules/hooks/graph'
 import { Web3StatusBase } from './Status'
-import { injected } from '@/modules/util/connectors'
 import { useToggleModal } from '@/modules/state/modal/hooks'
 import { Modal } from '@/modules/state/modal'
+import { UnsupportedChainIdError } from '@web3-react/core'
+import {
+  NoEthereumProviderError,
+  UserRejectedRequestError as InjectedUserRejected,
+} from '@web3-react/injected-connector'
+import { UserRejectedRequestError as WalletConnectUserRejected } from '@web3-react/walletconnect-connector'
+
+function parseError(error?: Error): string {
+  if (!error) return ''
+
+  if (error instanceof NoEthereumProviderError) {
+    return 'No Provider'
+  }
+  // user is on incorrect chain, we only support mainnet
+  if (error instanceof UnsupportedChainIdError) {
+    return 'Incorrect Network'
+  }
+
+  if (
+    error instanceof InjectedUserRejected ||
+    error instanceof WalletConnectUserRejected
+  ) {
+    return ''
+  }
+
+  console.error(error)
+  return 'Unknown Error'
+}
 
 export const Web3Status: React.FC = () => {
-  const { account, error, activate } = useEthersWeb3React()
+  const { account, error } = useEthersWeb3React()
   const [queryFindRank, { data }] = useFindRankLazyQuery()
 
   useEffect(() => {
@@ -16,13 +43,14 @@ export const Web3Status: React.FC = () => {
   }, [queryFindRank, account])
 
   const toggleDetails = useToggleModal(Modal.DETAILS)
+  const toggleWallet = useToggleModal(Modal.WALLET)
 
   return (
     <Web3StatusBase
       address={account}
       rank={data?.findRank}
-      error={error}
-      onAcivate={() => activate(injected)}
+      error={parseError(error)}
+      onAcivate={toggleWallet}
       onWantEdit={toggleDetails}
     />
   )

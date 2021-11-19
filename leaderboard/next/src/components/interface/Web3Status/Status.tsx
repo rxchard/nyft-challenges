@@ -1,5 +1,4 @@
 import React from 'react'
-import { UnsupportedChainIdError } from '@web3-react/core'
 import { AlertTriangle } from 'react-feather'
 import tw from 'twin.macro'
 import { Avatar } from '../Avatar'
@@ -17,7 +16,7 @@ const NetworkErrorIcon = tw(AlertTriangle)`w-4 h-4 text-white`
 export interface Web3StatusProps {
   address?: string | null
   rank?: number | null
-  error?: Error
+  error?: string
   onAcivate?: () => any
   onWantEdit?: () => any
 }
@@ -34,11 +33,7 @@ export const Web3StatusBase: React.FC<Web3StatusProps> = ({
       <Container>
         <MainContent>
           <NetworkErrorIcon />
-          <Text>
-            {error instanceof UnsupportedChainIdError
-              ? 'Incorrect Network'
-              : 'Error'}
-          </Text>
+          <Text>{error}</Text>
         </MainContent>
       </Container>
     )

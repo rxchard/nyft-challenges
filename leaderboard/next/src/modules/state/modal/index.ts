@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 export enum Modal {
   DETAILS,
-  TEST,
+  WALLET,
 }
 
 export interface ModalState {

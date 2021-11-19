@@ -5,22 +5,13 @@ import { useUpdateDetailsMutation } from '@/modules/hooks/graph'
 import { signMessage } from '@/modules/util/library'
 import { Modal } from '@/modules/state/modal'
 import { useIsActiveModal, useToggleModal } from '@/modules/state/modal/hooks'
+import { StyledButton, StyledInput } from '../util/Base'
 
 const InputContainer = tw.div`space-y-2`
 
-const StyledInput = tw.input`w-full p-4 text-white outline-none placeholder-darked-600 bg-darked-800 rounded-xl`
-
-const StyledButton = tw.button`
-  w-full p-4 rounded-xl text-white bg-darked-600 
-  disabled:(cursor-default bg-darked-700 text-darked-600)`
-
-export interface DetailsInputProps {
-  modal: Modal
-}
-
-export const DetailsInput: React.FC<DetailsInputProps> = ({ modal }) => {
-  const activeModal = useIsActiveModal(modal)
-  const toggleModal = useToggleModal(modal)
+export const DetailsInput: React.FC = () => {
+  const activeModal = useIsActiveModal(Modal.DETAILS)
+  const toggleModal = useToggleModal(Modal.DETAILS)
 
   const [name, setName] = useState('')
   const [text, setText] = useState('')

@@ -2,7 +2,7 @@ import React from 'react'
 import tw from 'twin.macro'
 
 import { Link } from '@/components/Link'
-import { Container } from '../util/Container'
+import { Container } from '../util/Base'
 import { Web3Status } from '../Web3Status'
 
 const HeaderFrame = tw.div`flex flex-row justify-end`

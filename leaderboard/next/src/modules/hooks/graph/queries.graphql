@@ -9,6 +9,10 @@ query Leaderboard($limit: Int, $skip: Int) {
   }
 }
 
+query TotalOwners {
+  totalOwners
+}
+
 mutation UpdateDetails(
   $address: String!
   $signature: String!

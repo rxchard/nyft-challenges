@@ -3,11 +3,9 @@ import tw from 'twin.macro'
 import styled from 'styled-components'
 import { useTransition, animated } from 'react-spring'
 import { DialogOverlay, DialogContent } from '@reach/dialog'
-import { Modal } from '@/modules/state/modal'
-import { useIsActiveModal } from '@/modules/state/modal/hooks'
 
-export interface ModalProps {
-  modal: Modal
+export interface BaseModalProps {
+  isActive: boolean
 }
 
 const StyledOverlay = tw(
@@ -22,10 +20,8 @@ const StyledContent = styled(DialogContent).attrs({ 'aria-label': 'dialog' })(
   ContentStyle,
 )
 
-export const ModalBase: React.FC<ModalProps> = ({ modal, children }) => {
-  const active = useIsActiveModal(modal)
-
-  const trans = useTransition(active, {
+export const BaseModal: React.FC<BaseModalProps> = ({ isActive, children }) => {
+  const trans = useTransition(isActive, {
     config: { duration: 100 },
     from: { opacity: 0 },
     enter: { opacity: 1 },
