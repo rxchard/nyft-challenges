@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import tw from 'twin.macro'
 import { Modal } from '@/modules/state/modal'
 import { ManagedModal } from '../Modal'
@@ -9,11 +9,21 @@ import {
   walletConnect,
 } from '@/modules/util/connectors'
 import { AbstractConnector } from '@web3-react/abstract-connector'
+import { useIsActiveModal, useToggleModal } from '@/modules/state/modal/hooks'
+import { usePrevious } from '@/modules/hooks/usePrevious'
 
 const StyledButton = tw.button`w-full p-4 text-white border rounded-xl bg-darked-700 border-darked-600`
 
 export const WalletModal: React.FC = () => {
-  const { activate } = useEthersWeb3React()
+  const activeModal = useIsActiveModal(Modal.WALLET)
+  const toggleSelf = useToggleModal(Modal.WALLET)
+
+  const { account, activate } = useEthersWeb3React()
+  const prevAccount = usePrevious(account)
+
+  useEffect(() => {
+    if (account && !prevAccount && activeModal) toggleSelf()
+  }, [account, prevAccount, activeModal, toggleSelf])
 
   const handleActivation = (connector: AbstractConnector) => {
     prepareActivation(connector)
