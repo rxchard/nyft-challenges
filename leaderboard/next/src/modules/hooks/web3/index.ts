@@ -1,2 +1,3 @@
-export { useEagerConnect } from './useEagerConnect'
-export { useEthersWeb3React } from './useEthersWeb3React'
+export * from './useEagerConnect'
+export * from './useEthersWeb3React'
+export * from './useENS'

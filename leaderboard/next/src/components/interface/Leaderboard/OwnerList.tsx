@@ -1,9 +1,9 @@
 import React from 'react'
 import { useTrail, animated } from 'react-spring'
 import { LeaderboardQuery } from '@/modules/hooks/graph'
-import { Owner } from './Owner'
+import { OwnerENS } from './OwnerENS'
 
-const AnimatedOwner = animated(Owner)
+const AnimatedOwner = animated(OwnerENS)
 
 export interface OwnerListProps {
   list: LeaderboardQuery['currentLeaderboard']
@@ -26,8 +26,8 @@ export const OwnerList: React.FC<OwnerListProps> = ({ list }) => {
             {...{
               address,
               valuation,
-              name: details?.name ?? undefined,
-              text: details?.text ?? undefined,
+              name: details?.name,
+              text: details?.text,
             }}
             key={index}
             style={styles}

@@ -6,10 +6,10 @@ import { Avatar } from '../Avatar'
 import { BarChart2 } from 'react-feather'
 
 export interface OwnerProps {
-  address?: string
-  valuation?: number
-  name?: string
-  text?: string
+  address: string
+  valuation: number
+  name?: string | null
+  text?: string | null
 }
 
 const OwnerFrame = tw.div`w-full mt-8 text-lg text-center text-white border-2 bg-darked-700 rounded-xl border-darked-600`
@@ -25,8 +25,8 @@ const Valuation = tw.p`space-x-2 whitespace-nowrap`
 const ValueIcon = tw(BarChart2)`inline-block w-4 h-4 text-white`
 
 export const Owner: React.FC<OwnerProps> = ({
-  address = '0x0000000000000000000000000000000000000000',
-  valuation = -1,
+  address,
+  valuation,
   name,
   text,
   ...rest
@@ -39,7 +39,7 @@ export const Owner: React.FC<OwnerProps> = ({
           external={true}
           url={'https://etherscan.io/address/' + address}
         >
-          {name ? name : address}
+          {name || address}
         </TruncLink>
       </NamedAvatar>
       <Valuation>
