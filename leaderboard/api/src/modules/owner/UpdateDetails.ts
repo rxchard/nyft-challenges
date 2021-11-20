@@ -2,6 +2,7 @@ import { ethers } from 'ethers'
 import { Args, ArgsType, Field, Mutation, Resolver } from 'type-graphql'
 import { Owner, Owners } from '../../entity/Owner'
 import { error } from '../../winston'
+import { mayUpdateDetails } from './util'
 
 @ArgsType()
 export class UpdateDetailsArgs {
@@ -21,6 +22,10 @@ export class UpdateDetailsResolver {
     text = text.trim()
 
     try {
+      if (!mayUpdateDetails(address)) {
+        return null
+      }
+
       const owner = await Owners.findOne({ address })
 
       if (!owner) {

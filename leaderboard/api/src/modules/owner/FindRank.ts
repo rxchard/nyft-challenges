@@ -1,13 +1,10 @@
 import { Arg, Int, Query, Resolver } from 'type-graphql'
-import { Owners } from '../../entity/Owner'
+import { findOwnerIndex } from './util'
 
 @Resolver()
 export class FindRankResolver {
   @Query(() => Int, { nullable: true })
   async findRank(@Arg('address') address: string): Promise<number | null> {
-    const sorted = await Owners.find().sort({ valuation: -1 })
-    const idx = sorted.findIndex(owner => owner.address === address)
-
-    return idx === -1 ? null : idx + 1
+    return findOwnerIndex(address)
   }
 }
