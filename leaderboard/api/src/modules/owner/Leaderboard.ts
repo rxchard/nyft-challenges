@@ -6,6 +6,9 @@ import { Pagination } from '../../types/Pagination'
 export class LeaderboardResolver {
   @Query(() => [Owner])
   async currentLeaderboard(@Args() { limit, skip }: Pagination) {
-    return await Owners.find().sort({ valuation: -1 }).limit(limit).skip(skip)
+    return await Owners.find()
+      .sort({ valuation: -1, _id: -1 })
+      .skip(skip)
+      .limit(limit)
   }
 }
