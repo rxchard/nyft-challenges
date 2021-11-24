@@ -1,6 +1,6 @@
 import { BigNumber } from '@ethersproject/bignumber'
 import { prop, getModelForClass } from '@typegoose/typegoose'
-import { BigNumberOpt } from '../types/BigNumberProp'
+import { BigNumberOpt } from '../util/BigNumberProp'
 
 export class EventArgs {
   @prop() operator!: string
@@ -24,7 +24,8 @@ export class Event {
   @prop({ type: [String] })
   topics!: string[]
 
-  @prop() transactionHash!: string
+  @prop({ unique: true })
+  transactionHash!: string
 
   @prop({ type: EventArgs, _id: false })
   args!: EventArgs

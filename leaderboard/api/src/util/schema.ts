@@ -1,6 +1,6 @@
 import { buildSchema } from 'type-graphql'
 
-import { FindRankResolver } from '../modules/owner/FindRank'
+import { OwnerResolver } from '../modules/owner/Owner'
 import { LeaderboardResolver } from '../modules/owner/Leaderboard'
 import { TotalOwnersResolver } from '../modules/owner/TotalOwners'
 import { UpdateDetailsResolver } from '../modules/owner/UpdateDetails'
@@ -10,7 +10,7 @@ export const loadSchema = () =>
     resolvers: [
       LeaderboardResolver,
       UpdateDetailsResolver,
-      FindRankResolver,
+      OwnerResolver,
       TotalOwnersResolver,
     ],
   })

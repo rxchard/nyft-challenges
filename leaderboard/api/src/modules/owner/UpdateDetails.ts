@@ -1,8 +1,8 @@
 import { ethers } from 'ethers'
 import { Args, ArgsType, Field, Mutation, Resolver } from 'type-graphql'
-import { Owner, Owners } from '../../entity/Owner'
+import { Owner } from '../../entity/Owner'
 import { error } from '../../winston'
-import { mayUpdateDetails } from './util'
+import { accessOwner } from './util'
 
 @ArgsType()
 export class UpdateDetailsArgs {
@@ -22,13 +22,9 @@ export class UpdateDetailsResolver {
     text = text.trim()
 
     try {
-      if (!mayUpdateDetails(address)) {
-        return null
-      }
+      const { owner, updateAllowed } = await accessOwner(address)
 
-      const owner = await Owners.findOne({ address })
-
-      if (!owner) {
+      if (!owner || !updateAllowed) {
         return null
       }
 

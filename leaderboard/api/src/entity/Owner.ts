@@ -42,7 +42,7 @@ export class Details {
 export class Owner {
   // ERC-20 Address
   @Field()
-  @prop()
+  @prop({ unique: true })
   address!: string
 
   @Field()
