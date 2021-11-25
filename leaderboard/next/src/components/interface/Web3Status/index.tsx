@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useEthersWeb3React } from '@/modules/hooks/web3'
-import { useFindRankLazyQuery } from '@/modules/hooks/graph'
+import { useOwnerLazyQuery } from '@/modules/hooks/graph'
 import { Web3StatusBase } from './Status'
 import { useToggleModal } from '@/modules/state/modal/hooks'
 import { Modal } from '@/modules/state/modal'
@@ -35,12 +35,12 @@ function parseError(error?: Error): string {
 
 export const Web3Status: React.FC = () => {
   const { account, error } = useEthersWeb3React()
-  const [queryFindRank, { data }] = useFindRankLazyQuery()
+  const [queryFindOwner, { data }] = useOwnerLazyQuery()
 
   useEffect(() => {
     if (!account) return
-    queryFindRank({ variables: { address: account } })
-  }, [queryFindRank, account])
+    queryFindOwner({ variables: { address: account } })
+  }, [queryFindOwner, account])
 
   const toggleDetails = useToggleModal(Modal.DETAILS)
   const toggleWallet = useToggleModal(Modal.WALLET)
@@ -48,7 +48,7 @@ export const Web3Status: React.FC = () => {
   return (
     <Web3StatusBase
       address={account}
-      rank={data?.findRank}
+      info={data?.findOwner}
       error={parseError(error)}
       onAcivate={toggleWallet}
       onWantEdit={toggleDetails}

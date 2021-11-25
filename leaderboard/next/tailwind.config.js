@@ -4,24 +4,36 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        darked: {
-          300: '#c6bbcc',
-          600: '#62506b',
-          700: '#1b161d',
-          800: '#18141a',
-          900: '#0b090c',
+        primary: {
+          1: '#fdeb89',
+          2: '#e36de4',
+          3: '#21eccf',
+          //
+          4: '#f3a871',
+          5: '#a957aa',
+          6: '#21eccf',
         },
-        mandy: {
-          50: '#fdf6f7',
-          100: '#fbedf0',
-          200: '#f6d2d9',
-          300: '#f1b7c3',
-          400: '#e68195',
-          500: '#DB4B68',
-          600: '#c5445e',
-          700: '#a4384e',
-          800: '#832d3e',
-          900: '#6b2533',
+        // #0f0416
+        secondary: {
+          50: '#f9f7fb',
+          100: '#f4eff8',
+          200: '#e3d8ed',
+          300: '#d2c1e3',
+          400: '#b092cd',
+          500: '#8e63b8',
+          600: '#8059a6',
+          700: '#6b4a8a',
+          800: '#553b6e',
+          900: '#46315a',
+        },
+        tertiary: {
+          100: '#F9E0F9',
+          200: '#E88CEA',
+          300: '#c6bbcc',
+          //
+          700: '#2D2936',
+          800: '#1D1A22',
+          900: '#0B0A0D',
         },
       },
       fontFamily: {
@@ -48,9 +60,6 @@ module.exports = {
       },
       zIndex: {
         '-1': -1,
-      },
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
       },
       screens: {
         portrait: { raw: '(orientation: portrait)' },

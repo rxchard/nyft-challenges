@@ -12,7 +12,7 @@ import { WalletModal } from '@/components/interface/WalletModal'
 import { Heading } from '@/components/interface/Leaderboard/Heading'
 
 const LandingContainer = styled(Container)`
-  margin-top: 420px;
+  margin-top: 400px;
   ${tw`flex flex-col items-center h-full`}
 `
 

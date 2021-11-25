@@ -1,18 +1,17 @@
 import React, { useEffect } from 'react'
 import tw from 'twin.macro'
+import Image from 'next/image'
 import { Modal } from '@/modules/state/modal'
 import { ManagedModal } from '../Modal'
 import { useEthersWeb3React } from '@/modules/hooks/web3'
-import {
-  injected,
-  prepareActivation,
-  walletConnect,
-} from '@/modules/util/connectors'
+import { prepareActivation } from '@/modules/util/connectors'
 import { AbstractConnector } from '@web3-react/abstract-connector'
 import { useIsActiveModal, useToggleModal } from '@/modules/state/modal/hooks'
 import { usePrevious } from '@/modules/hooks/usePrevious'
+import { StyledButton } from '../util/Base'
+import { AVAIL_WALLETS } from '@/modules/util/wallets'
 
-const StyledButton = tw.button`w-full p-4 text-white border rounded-xl bg-darked-700 border-darked-600`
+const SpacedButton = tw(StyledButton)`justify-between`
 
 export const WalletModal: React.FC = () => {
   const activeModal = useIsActiveModal(Modal.WALLET)
@@ -32,12 +31,17 @@ export const WalletModal: React.FC = () => {
 
   return (
     <ManagedModal modal={Modal.WALLET} title={'Connect your wallet'}>
-      <StyledButton onClick={() => handleActivation(injected)}>
-        MetaMask
-      </StyledButton>
-      <StyledButton onClick={() => handleActivation(walletConnect)}>
-        WalletConnect
-      </StyledButton>
+      {AVAIL_WALLETS.map((wallet, index) => (
+        <SpacedButton
+          key={index}
+          onClick={() => handleActivation(wallet.connector)}
+        >
+          {wallet.name}
+          {wallet.icon && (
+            <Image src={wallet.icon} width={21} height={21} alt="" />
+          )}
+        </SpacedButton>
+      ))}
     </ManagedModal>
   )
 }

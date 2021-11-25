@@ -12,14 +12,14 @@ export interface OwnerProps {
   text?: string | null
 }
 
-const OwnerFrame = tw.div`w-full mt-8 text-lg text-center text-white border-2 bg-darked-700 rounded-xl border-darked-600`
+const OwnerFrame = tw.div`w-full mt-8 text-lg text-center text-white bg-clip-padding bg-gradient-to-r from-primary-4 via-primary-5 to-primary-6 rounded-xl ring-2 ring-secondary-900`
 
-const DetailFrame = tw.div`flex flex-row items-center justify-between p-4 space-x-4 rounded-xl bg-darked-900`
+const DetailFrame = tw.div`flex flex-row items-center justify-between p-4 space-x-4 bg-black bg-clip-padding bg-opacity-90 rounded-xl`
 
 const NamedAvatar = tw.div`flex flex-row items-center max-w-full space-x-4 overflow-hidden`
 const TruncLink = tw(Link)`truncate`
 
-const Description = tw.p`p-2 text-white`
+const Description = tw.p`p-4 pt-2 pb-2 text-white break-words`
 
 const Valuation = tw.p`space-x-2 whitespace-nowrap`
 const ValueIcon = tw(BarChart2)`inline-block w-4 h-4 text-white`

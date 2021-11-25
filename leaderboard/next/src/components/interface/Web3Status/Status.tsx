@@ -3,11 +3,14 @@ import { AlertTriangle } from 'react-feather'
 import tw from 'twin.macro'
 import { Avatar } from '../Avatar'
 import { makeShortAddress } from '@/modules/util/address'
+import { OwnerQuery } from '@/modules/hooks/graph'
 
-const Container = tw.div`inline-flex flex-row items-center bg-darked-800 rounded-xl`
+const Container = tw.div`inline-flex flex-row items-center bg-gradient-to-r from-primary-4 via-primary-5 to-primary-6 rounded-xl`
 
 const Content = tw.div`flex flex-row items-center p-1 pl-4 pr-4 space-x-2 flex-nowrap`
-const MainContent = tw(Content)`bg-darked-600 rounded-xl hover:cursor-pointer`
+const MainContent = tw(
+  Content,
+)`bg-white bg-opacity-20 rounded-xl hover:cursor-pointer`
 
 const Text = tw.p`text-white whitespace-nowrap`
 
@@ -15,7 +18,7 @@ const NetworkErrorIcon = tw(AlertTriangle)`w-4 h-4 text-white`
 
 export interface Web3StatusProps {
   address?: string | null
-  rank?: number | null
+  info?: OwnerQuery['findOwner']
   error?: string
   onAcivate?: () => any
   onWantEdit?: () => any
@@ -24,7 +27,7 @@ export interface Web3StatusProps {
 export const Web3StatusBase: React.FC<Web3StatusProps> = ({
   address,
   error,
-  rank,
+  info,
   onAcivate,
   onWantEdit,
 }) => {
@@ -42,9 +45,9 @@ export const Web3StatusBase: React.FC<Web3StatusProps> = ({
   if (address) {
     return (
       <Container>
-        {rank && (
+        {info && info.idx !== -1 && (
           <Content>
-            <Text># {rank}</Text>
+            <Text># {info.idx + 1}</Text>
           </Content>
         )}
         <MainContent onClick={onWantEdit}>

@@ -11,7 +11,7 @@ export const Icons = {
   Back: styled(ArrowLeft)(IconStyle),
 }
 
-const CaptionContainer = tw.div`flex flex-row justify-between w-full p-4`
+const CaptionContainer = tw.div`flex flex-row items-center justify-between w-full p-4`
 
 export interface ModalCaptionProps {
   title: string

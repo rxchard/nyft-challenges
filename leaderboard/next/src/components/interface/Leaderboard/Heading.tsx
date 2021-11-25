@@ -5,7 +5,7 @@ import { useSpring } from '@react-spring/core'
 import { animated } from '@react-spring/web'
 import { Container, Subtitle, Title } from '../util/Base'
 
-const BoardContainer = tw(Container)`text-center text-white uppercase`
+const BoardContainer = tw.div`text-center text-white uppercase`
 
 export const Heading: React.FC = () => {
   const { data } = useTotalOwnersQuery()

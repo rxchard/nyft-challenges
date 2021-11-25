@@ -10,11 +10,11 @@ export interface BaseModalProps {
 
 const StyledOverlay = tw(
   DialogOverlay,
-)`z-10 bg-opacity-50 bg-darked-900 flex items-center justify-center`
+)`z-10 bg-opacity-50 bg-black flex items-center justify-center`
 
 const AnimatedOverlay = animated(StyledOverlay)
 
-const ContentStyle = tw`w-full max-w-xl p-0 m-8 text-white border-2 rounded-xl border-darked-700 bg-darked-900`
+const ContentStyle = tw`w-full max-w-lg p-0 m-8 text-white border rounded-xl border-tertiary-800 bg-tertiary-900`
 
 const StyledContent = styled(DialogContent).attrs({ 'aria-label': 'dialog' })(
   ContentStyle,
