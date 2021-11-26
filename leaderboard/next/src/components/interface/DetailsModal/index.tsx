@@ -4,7 +4,7 @@ import { Modal } from '@/modules/state/modal'
 import { ManagedModal } from '../Modal'
 import { DetailsInput } from './DetailsInput'
 
-const Disclaimer = tw.div`p-4 leading-snug border bg-tertiary-800 rounded-xl border-tertiary-700`
+const Disclaimer = tw.div`p-4 leading-snug border bg-secondary-800 rounded-xl border-secondary-700`
 
 export const DetailsModal: React.FC = () => (
   <ManagedModal modal={Modal.DETAILS} title={'Edit your details'}>

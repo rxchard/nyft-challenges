@@ -12,7 +12,7 @@ export interface OwnerProps {
   text?: string | null
 }
 
-const OwnerFrame = tw.div`w-full mt-8 text-lg text-center text-white bg-clip-padding bg-gradient-to-r from-primary-4 via-primary-5 to-primary-6 rounded-xl ring-2 ring-secondary-900`
+const OwnerFrame = tw.div`w-full mt-8 text-lg text-center text-white bg-clip-padding bg-gradient-to-r from-primary-4 via-primary-5 to-primary-6 rounded-xl ring-2 ring-secondary-700`
 
 const DetailFrame = tw.div`flex flex-row items-center justify-between p-4 space-x-4 bg-black bg-clip-padding bg-opacity-90 rounded-xl`
 
