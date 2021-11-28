@@ -20,11 +20,11 @@ export const Connected = Template.bind({})
 
 Connected.args = {
   address: '0x0000000000000000000000000000000000000000',
-  rank: 1,
+  info: { idx: 0, updateAllowed: false },
 }
 
 export const WithError = Template.bind({})
 
 WithError.args = {
-  error: new Error('Storybook Fictional Error'),
+  error: 'Storybook Fictional Error',
 }

@@ -10,3 +10,10 @@ export default {
 const Template: Story<OwnerProps> = ({ ...props }) => <Owner {...props} />
 
 export const Main = Template.bind({})
+
+Main.args = {
+  address: '0x0000000000000000000000000000000000000000',
+  valuation: 117,
+  name: 'Custom Name',
+  text: 'Custom Text',
+}

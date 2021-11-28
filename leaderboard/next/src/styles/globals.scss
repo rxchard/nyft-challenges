@@ -9,7 +9,8 @@ body,
 }
 
 #__next {
-  background-image: url('/head_cut.png'), url('/fall.png');
+  background-image: url('../../public/head_cut.png'),
+    url('../../public/fall.png');
   background-repeat: no-repeat, repeat-y;
   @apply bg-black bg-top bg-auto;
 }
