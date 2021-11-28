@@ -15,7 +15,10 @@ export class OwnerEntry {
 }
 
 export async function accessOwner(search: string): Promise<OwnerEntry> {
-  const sortedOwners = await Owners.find().sort({ valuation: -1, _id: -1 })
+  const sortedOwners = await Owners.findActive().sort({
+    valuation: -1,
+    _id: -1,
+  })
 
   const idx = sortedOwners.findIndex(
     ({ address }) => address.toLowerCase() === search.toLowerCase(),

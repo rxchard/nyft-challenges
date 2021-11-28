@@ -16,7 +16,7 @@ export class LeaderboardResolver {
   async currentLeaderboard(
     @Args() { limit, skip }: Pagination,
   ): Promise<Owner[]> {
-    return await Owners.find()
+    return await Owners.findActive()
       .sort({ valuation: -1, _id: -1 })
       .skip(skip)
       .limit(limit)

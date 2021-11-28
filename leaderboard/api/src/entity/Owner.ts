@@ -1,5 +1,10 @@
 import { ObjectType, Field } from 'type-graphql'
-import { prop, getModelForClass, pre } from '@typegoose/typegoose'
+import {
+  prop,
+  getModelForClass,
+  pre,
+  ReturnModelType,
+} from '@typegoose/typegoose'
 
 @ObjectType()
 export class Balance {
@@ -56,6 +61,10 @@ export class Owner {
   @Field({ nullable: true })
   @prop({ type: Details, _id: false })
   details?: Details
+
+  public static findActive(this: ReturnModelType<typeof Owner>) {
+    return this.find({ valuation: { $gt: 0 } })
+  }
 }
 
 export const Owners = getModelForClass(Owner)
