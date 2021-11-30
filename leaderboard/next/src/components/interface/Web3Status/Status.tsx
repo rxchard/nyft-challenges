@@ -1,5 +1,4 @@
 import React from 'react'
-import { AlertTriangle } from 'react-feather'
 import tw from 'twin.macro'
 import { Avatar } from '../Avatar'
 import { makeShortAddress } from '@/modules/util/address'
@@ -14,34 +13,19 @@ const MainContent = tw(
 
 const Text = tw.p`text-white whitespace-nowrap`
 
-const NetworkErrorIcon = tw(AlertTriangle)`w-4 h-4 text-white`
-
 export interface Web3StatusProps {
   address?: string | null
   info?: OwnerQuery['findOwner']
-  error?: string
   onAcivate?: () => any
   onWantEdit?: () => any
 }
 
 export const Web3StatusBase: React.FC<Web3StatusProps> = ({
   address,
-  error,
   info,
   onAcivate,
   onWantEdit,
 }) => {
-  if (error) {
-    return (
-      <Container>
-        <MainContent>
-          <NetworkErrorIcon />
-          <Text>{error}</Text>
-        </MainContent>
-      </Container>
-    )
-  }
-
   if (address) {
     return (
       <Container>

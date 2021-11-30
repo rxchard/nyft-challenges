@@ -10,6 +10,35 @@ import { useIsActiveModal, useToggleModal } from '@/modules/state/modal/hooks'
 import { usePrevious } from '@/modules/hooks/usePrevious'
 import { StyledButton } from '../util/Base'
 import { AVAIL_WALLETS } from '@/modules/util/wallets'
+import { UnsupportedChainIdError } from '@web3-react/core'
+import {
+  NoEthereumProviderError,
+  UserRejectedRequestError as InjectedUserRejected,
+} from '@web3-react/injected-connector'
+import { UserRejectedRequestError as WalletConnectUserRejected } from '@web3-react/walletconnect-connector'
+import { ModalError } from '../Modal/Util'
+
+function parseError(error?: Error): string {
+  if (!error) return ''
+
+  if (error instanceof NoEthereumProviderError) {
+    return 'No Ethereum provider'
+  }
+  // user is on incorrect chain, we only support mainnet
+  if (error instanceof UnsupportedChainIdError) {
+    return 'Incorrect Network'
+  }
+
+  if (
+    error instanceof InjectedUserRejected ||
+    error instanceof WalletConnectUserRejected
+  ) {
+    return 'Unable to connect'
+  }
+
+  console.error(error)
+  return 'Unknown Error'
+}
 
 const SpacedButton = tw(StyledButton)`justify-between`
 
@@ -17,7 +46,7 @@ export const WalletModal: React.FC = () => {
   const activeModal = useIsActiveModal(Modal.WALLET)
   const toggleSelf = useToggleModal(Modal.WALLET)
 
-  const { account, activate } = useEthersWeb3React()
+  const { account, activate, error } = useEthersWeb3React()
   const prevAccount = usePrevious(account)
 
   useEffect(() => {
@@ -31,6 +60,7 @@ export const WalletModal: React.FC = () => {
 
   return (
     <ManagedModal modal={Modal.WALLET} title={'Connect your wallet'}>
+      <ModalError error={parseError(error)} />
       {AVAIL_WALLETS.map((wallet, index) => (
         <SpacedButton
           key={index}
