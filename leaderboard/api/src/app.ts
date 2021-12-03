@@ -5,7 +5,7 @@ import { ApolloServer } from 'apollo-server-koa'
 
 import { connect } from './store/compass'
 import { info, debug, error, warn } from './winston'
-import { loadSchema } from './util/schema'
+import { loadSchema } from './modules/graph/schema'
 
 import { sync } from './modules/eth/sync'
 

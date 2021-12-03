@@ -16,8 +16,8 @@ query TotalOwners {
 mutation UpdateDetails(
   $address: String!
   $signature: String!
-  $name: String
-  $text: String
+  $name: String!
+  $text: String!
 ) {
   updateDetails(
     address: $address
@@ -25,10 +25,15 @@ mutation UpdateDetails(
     name: $name
     text: $text
   ) {
-    address
-    details {
-      text
-      name
+    owner {
+      address
+      details {
+        text
+        name
+      }
+    }
+    error {
+      message
     }
   }
 }

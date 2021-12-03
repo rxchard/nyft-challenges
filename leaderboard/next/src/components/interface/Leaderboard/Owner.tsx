@@ -24,6 +24,9 @@ const Description = tw.p`p-4 pt-2 pb-2 text-white break-words`
 const Valuation = tw.p`space-x-2 whitespace-nowrap`
 const ValueIcon = tw(BarChart2)`inline-block w-4 h-4 text-white`
 
+const PalmContainer = tw.div`flex flex-row items-center space-x-2 rounded-xl`
+const PalmImage = tw.img`w-8 p-1 rounded-full bg-gradient-to-r from-primary-4 to-primary-5`
+
 export const Owner: React.FC<OwnerProps> = ({
   address,
   valuation,
@@ -35,12 +38,20 @@ export const Owner: React.FC<OwnerProps> = ({
     <DetailFrame>
       <NamedAvatar>
         <Avatar address={address} size={42} />
-        <TruncLink
-          external={true}
-          url={'https://etherscan.io/address/' + address}
-        >
-          {name || address}
-        </TruncLink>
+        <div tw="text-left">
+          <TruncLink
+            external={true}
+            url={'https://etherscan.io/address/' + address}
+          >
+            {name || address}
+          </TruncLink>
+          {/* <PalmContainer>
+            <PalmImage src="/ultra.png" alt="" />
+            <PalmImage src="/neon.png" alt="" />
+            <PalmImage src="/silver.png" alt="" />
+            <PalmImage src="/iron.png" alt="" />
+          </PalmContainer> */}
+        </div>
       </NamedAvatar>
       <Valuation>
         <span>{valuation}</span>

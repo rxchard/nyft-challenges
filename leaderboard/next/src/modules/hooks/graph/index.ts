@@ -1,9 +1,9 @@
-import { apiBaseUrl } from '@/modules/util/constants'
+import { API_BASE_URL } from '@/modules/util/constants'
 import { ApolloClient, InMemoryCache } from '@apollo/client'
 
 export * from './types'
 
 export const client = new ApolloClient({
-  uri: apiBaseUrl,
+  uri: API_BASE_URL,
   cache: new InMemoryCache(),
 })

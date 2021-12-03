@@ -1,14 +1,6 @@
 import { Args, Query, Resolver, ArgsType, Field, Int } from 'type-graphql'
 import { Owner, Owners } from '../../entity/Owner'
-
-@ArgsType()
-export class Pagination {
-  @Field(() => Int)
-  skip: number = 0
-
-  @Field(() => Int)
-  limit: number = 25
-}
+import { Pagination } from '../graph/Pagination'
 
 @Resolver()
 export class LeaderboardResolver {

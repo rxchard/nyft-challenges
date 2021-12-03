@@ -1,4 +1,4 @@
-import { ObjectType, Field } from 'type-graphql'
+import { ObjectType, Field, Int } from 'type-graphql'
 import {
   prop,
   getModelForClass,
@@ -8,12 +8,12 @@ import {
 
 @ObjectType()
 export class Balance {
-  @Field() @prop() iron!: number
-  @Field() @prop() bronze!: number
-  @Field() @prop() silver!: number
-  @Field() @prop() gold!: number
-  @Field() @prop() neon!: number
-  @Field() @prop() ultra!: number
+  @Field(() => Int) @prop() iron!: number
+  @Field(() => Int) @prop() bronze!: number
+  @Field(() => Int) @prop() silver!: number
+  @Field(() => Int) @prop() gold!: number
+  @Field(() => Int) @prop() neon!: number
+  @Field(() => Int) @prop() ultra!: number
 
   public evaluate(): number {
     return (
@@ -54,7 +54,7 @@ export class Owner {
   @prop({ type: Balance, _id: false })
   balance!: Balance
 
-  @Field()
+  @Field(() => Int)
   @prop()
   valuation!: number
 
