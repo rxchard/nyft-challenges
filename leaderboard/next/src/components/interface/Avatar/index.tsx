@@ -10,9 +10,13 @@ export interface AvatarProps {
 
 const AvatarFrame = tw.div`rounded-full`
 
-export const Avatar: React.FC<AvatarProps> = ({ address, size = 16 }) => {
+export const Avatar: React.FC<AvatarProps> = ({
+  address,
+  size = 18,
+  ...rest
+}) => {
   return (
-    <AvatarFrame>
+    <AvatarFrame {...rest}>
       <DavatarImage
         address={
           validateAddress(address) ??
