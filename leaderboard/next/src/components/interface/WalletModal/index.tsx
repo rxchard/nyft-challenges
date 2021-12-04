@@ -16,7 +16,7 @@ import {
   UserRejectedRequestError as InjectedUserRejected,
 } from '@web3-react/injected-connector'
 import { UserRejectedRequestError as WalletConnectUserRejected } from '@web3-react/walletconnect-connector'
-import { ModalError } from '../Modal/Util'
+import { ModalError } from '../Modal/util'
 
 function parseError(error?: Error): string {
   if (!error) return ''

@@ -6,7 +6,7 @@ import { signMessage } from '@/modules/util/library'
 import { Modal } from '@/modules/state/modal'
 import { useIsActiveModal, useToggleModal } from '@/modules/state/modal/hooks'
 import { StyledButton, StyledInput } from '../util/Base'
-import { ModalError } from '../Modal/Util'
+import { ModalError } from '../Modal/util'
 import { usePrevious } from '@/modules/hooks/usePrevious'
 
 const InputContainer = tw.div`space-y-2`

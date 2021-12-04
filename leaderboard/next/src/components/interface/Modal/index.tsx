@@ -2,7 +2,7 @@ import React from 'react'
 import { Modal } from '@/modules/state/modal'
 import { useIsActiveModal, useToggleModal } from '@/modules/state/modal/hooks'
 import { BaseModal } from './Base'
-import { ModalCaption, ModalContent } from './Util'
+import { ModalCaption, ModalContent } from './util'
 
 export interface ModalProps {
   modal: Modal
