@@ -47,9 +47,11 @@ export const Leaderboard: React.FC = () => {
   }
 
   return (
-    <BoardFrame>
-      <OwnerList list={data.currentLeaderboard} />
+    <>
+      <BoardFrame>
+        <OwnerList list={data.currentLeaderboard} />
+      </BoardFrame>
       {data && <ScrollObserver doEnter={queryMore} />}
-    </BoardFrame>
+    </>
   )
 }

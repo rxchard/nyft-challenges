@@ -1,5 +1,5 @@
-import { useLatest } from '@/modules/hooks/useLatest'
 import React, { useEffect, useRef, useState } from 'react'
+import { useLatest } from '@/modules/hooks/useLatest'
 
 export interface ScrollObserverProps {
   doEnter: () => any
@@ -12,6 +12,7 @@ export const ScrollObserver: React.FC<ScrollObserverProps> = ({ doEnter }) => {
   const observerRef = useRef(
     new IntersectionObserver(async ([entry]) => {
       const visible = entry.isIntersecting
+      console.log(entry)
       if (visible && !viewed) await enterView.current()
       setViewed(visible)
     }),
@@ -27,5 +28,6 @@ export const ScrollObserver: React.FC<ScrollObserverProps> = ({ doEnter }) => {
     }
   }, [observerRef])
 
-  return <div ref={trigger} />
+  // Mobile (Firefox) needs a height (Address bar not in viewport?)
+  return <div style={{ width: '100%', height: '100px' }} ref={trigger} />
 }
