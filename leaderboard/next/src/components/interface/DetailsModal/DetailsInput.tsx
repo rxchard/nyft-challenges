@@ -26,7 +26,8 @@ export const DetailsInput: React.FC = () => {
 
   const { account, library } = useEthersWeb3React()
 
-  const [updateDetailsMutation, { data, loading, error: graphError }] =
+  const [loading, setLoading] = useState(false)
+  const [updateDetailsMutation, { data, error: graphError }] =
     useUpdateDetailsMutation()
 
   const [error, setError] = useState('')
@@ -40,22 +41,24 @@ export const DetailsInput: React.FC = () => {
     setError(err ?? '')
   }, [data, graphError, wasActiveModal, activeModal, toggleModal])
 
-  const mutateDetails = async () => {
+  const mutateDetails = () => {
     if (!library || !account) return
+    setLoading(true)
 
-    const signature = await signMessage(
-      library,
-      [trimName, trimText].map(v => v || 'empty').join(':'),
-    )
-
-    await updateDetailsMutation({
-      variables: {
-        address: account,
-        name: trimName,
-        text: trimText,
-        signature,
-      },
-    })
+    signMessage(library, [trimName, trimText].map(v => v || 'empty').join(':'))
+      // will wait for the mutation to resolve
+      .then(signature =>
+        updateDetailsMutation({
+          variables: {
+            address: account,
+            name: trimName,
+            text: trimText,
+            signature,
+          },
+        }),
+      )
+      .catch(err => setError(err.message ?? 'Failed'))
+      .finally(() => setLoading(false))
   }
 
   return (
